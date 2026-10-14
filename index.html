@@ -3,421 +3,1736 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OnTime</title>
+<title>OnTime — Интерактивная презентация проекта</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fdfcfc;--tp:#f5f3f1;--line:#ebe8e4;--ink:#000;--mut:#777169;--teal:#3a9ba0;--teal-d:#1f6b71;--coral:#e0856a;--coral-l:#f7e3dc;--teal-l:#dcefef;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-:root:not([data-theme=light]){color-scheme:light}
-html{scroll-padding-top:70px;scroll-behavior:smooth}
-*{box-sizing:border-box;margin:0}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.5 Inter,system-ui,sans-serif;letter-spacing:.01em;overflow-x:clip}
-body.lock{height:100vh;overflow:hidden}
-.w{max-width:1200px;margin:0 auto;padding:0 24px}
-h1,h2{font-weight:300;letter-spacing:-.02em;line-height:1.1}
-h1{font-size:clamp(40px,6vw,76px)}h2{font-size:clamp(30px,4vw,48px)}
-h3{font-weight:500;font-size:18px}
-p{color:var(--mut)}
-.logo{font-weight:700;font-size:24px;letter-spacing:-.02em;color:var(--teal)}.logo b{color:var(--ink)}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 14px Inter,sans-serif;padding:11px 20px;border-radius:9999px;cursor:pointer;text-decoration:none;transition:background .2s}
-.btn.k{background:var(--ink);color:#fff;border-color:var(--ink)}.btn.k:hover{background:#222}.btn:hover{background:var(--tp)}
-.btn:focus-visible,input:focus-visible,.opt:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-.btn:disabled{opacity:.35;cursor:not-allowed}
-/* intro */
-#intro{position:fixed;inset:0;z-index:100;display:flex;pointer-events:none}
-#intro .p{flex:1;position:relative;display:grid;place-items:center;transition:transform 1.25s cubic-bezier(.77,0,.18,1) calc(var(--i)*.09s)}
-#intro .p span{width:70%;height:78%;border:1.5px dashed rgba(255,255,255,.55);border-radius:20px;display:grid;place-items:center;font-size:13px;color:rgba(255,255,255,.8)}
-#intro .p:nth-child(1){background:var(--teal)}#intro .p:nth-child(2){background:var(--coral)}#intro .p:nth-child(3){background:#1a1a1a}#intro .p:nth-child(4){background:#d8d2cb}
-#intro .p:nth-child(4) span{color:#555;border-color:#8a847c}
-#intro .p:nth-child(odd){--y:-102%}#intro .p:nth-child(even){--y:102%}
-#intro.go .p{transform:translateY(var(--y))}
-#intro .lg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#000;padding:16px 34px;border-radius:9999px;z-index:2;transition:opacity .4s}
-#intro .lg .logo{font-size:44px}#intro .lg .logo b{color:#fff}
-#intro.go .lg{opacity:0}
-/* nav */
-nav{position:sticky;top:0;z-index:50;background:rgba(253,252,252,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav .w{display:flex;align-items:center;gap:28px;height:60px}
-nav a.l{color:var(--ink);text-decoration:none;font-size:14px}nav a.l:hover{color:var(--teal-d)}
-nav .sp{flex:1}
-@media(max-width:860px){nav a.l{display:none}}
-/* hero */
-.hero{position:relative;min-height:calc(100vh - 60px);display:flex;align-items:center;overflow:hidden}
-.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;width:100%}
-.hero p{font-size:20px;line-height:1.4;max-width:480px;margin:24px 0 32px}
-.hero .t>*{opacity:0;transform:translateY(24px);transition:.9s cubic-bezier(.2,.7,.2,1)}
-body.ready .hero .t>*{opacity:1;transform:none}
-body.ready .hero .t>*:nth-child(2){transition-delay:.12s}body.ready .hero .t>*:nth-child(3){transition-delay:.24s}
-#orb{position:fixed;inset:0;width:100%;height:100%;z-index:40;pointer-events:none}.slot{width:var(--s,200px);height:var(--s,200px);max-width:100%;flex:none}.hero .slot{--s:min(520px,80vw);justify-self:center}
-@media(max-width:860px){.hero .w{grid-template-columns:1fr}.hero .slot{--s:300px}}
-section{position:relative;background:var(--bg);padding:144px 0 96px;margin-top:-48px;border-radius:48px 48px 0 0}.hero{z-index:0}
-.band{background:var(--tp)}#flow{padding:0}#flow .hd{margin:0 0 18px}#flow h2{font-size:clamp(26px,3vw,38px)}#flow .hd p{font-size:15px;margin-top:8px}@media(max-height:820px){#flow .hd p{display:none}}
-.hd{max-width:620px;margin-bottom:48px}.hd p{margin-top:16px;font-size:18px}
-/* flow */
-.pin{position:sticky;top:60px;height:calc(100vh - 60px);display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-top:24px}
-.track{position:relative;display:flex;gap:28px;padding:0 max(24px,calc((100vw - 1200px)/2 + 24px));will-change:transform}
-.pn{flex:none;width:min(500px,84vw)}
-.ph0{display:flex;gap:16px;align-items:center;margin-bottom:12px}.ph0 .slot{--s:100px}.ph0 h3{font-size:22px;font-weight:300}.ph0 p{font-size:14px}
-.bar{height:3px;background:var(--line);margin:18px auto 0;width:calc(100% - 48px);max-width:1152px;border-radius:3px}.bar i{display:block;height:100%;width:0;background:var(--teal);border-radius:3px}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:36px 0;border-top:1px solid var(--line)}.fr .slot{--s:260px}.fr.flip .slot{order:2;justify-self:end}.fr h3{font:300 32px/1.15 Inter;letter-spacing:-.02em;margin-bottom:12px}
-.fr.dk{background:var(--ink);color:#fff;border-radius:24px;padding:48px;border:0;margin:24px 0}.fr.dk p{color:#bdb7ae}.fr.dk h3{font-size:40px}
-.rv{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
-@media(max-width:860px){.fr{grid-template-columns:1fr}.fr.flip .slot{order:0;justify-self:start}.fr .slot{--s:170px}.fr.dk{padding:28px}}
-.steps{display:grid;gap:8px}
-.st{display:flex;gap:14px;padding:16px 18px;border-radius:20px;border:1px solid transparent;transition:.3s}
-.st i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--line);display:grid;place-items:center;font:500 13px Inter;font-style:normal}
-.st.on{background:#fff;border-color:var(--line)}.st.on i{background:var(--teal);color:#fff}.st.done i{background:var(--ink);color:#fff}
-.st p{font-size:14px}
-.card{background:#fff;border-radius:24px;padding:32px;box-shadow:0 0 1px rgba(0,0,0,.4),0 2px 4px rgba(0,0,0,.04);min-height:200px}
-.card h3{font-size:24px;font-weight:300;margin-bottom:20px}
-.opts{display:grid;gap:10px}
-.opt{display:flex;align-items:center;gap:14px;text-align:left;width:100%;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--bg);font:400 15px Inter;cursor:pointer;transition:.2s}
-.opt:hover{border-color:var(--teal)}.opt.sel{border-color:var(--teal);background:var(--teal-l)}
-.opt .ph{flex:none;width:52px;height:52px;border-radius:12px;border:1.5px dashed #b8b2aa;background:var(--tp);display:grid;place-items:center;font-size:10px;color:var(--mut)}
-.opt small{display:block;color:var(--mut)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 20px}
-.chip{padding:8px 16px;border:1px solid var(--line);border-radius:9999px;background:#fff;font:500 14px Inter;cursor:pointer}.chip.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
-.lbl{font-size:13px;color:var(--mut);margin-top:8px}
-input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:4px;font:400 15px Inter;margin:6px 0 14px;background:var(--bg)}
-.sum{background:var(--tp);border-radius:16px;padding:16px;font-size:14px;margin-bottom:18px;display:grid;gap:4px}
-.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 14px;border-radius:9999px;font:500 13px Inter;background:var(--coral-l);color:#a4482c}
-.badge.ok{background:var(--teal-l);color:var(--teal-d)}
-.salon{margin-top:20px;border:1px dashed #b8b2aa;border-radius:16px;padding:16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:14px}
-.via{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.via span{padding:6px 12px;border-radius:9999px;background:var(--teal-l);color:var(--teal-d);font:500 13px Inter}
-@media(max-width:860px){.flow{grid-template-columns:1fr}.card{padding:22px}}
-/* features */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-.fc{background:var(--tp);border-radius:20px;padding:32px;display:grid;gap:10px;align-content:start}
-.fc .ic{width:44px;height:44px;border-radius:50%;background:var(--teal);margin-bottom:14px}.fc:nth-child(2) .ic{background:var(--coral)}.fc:nth-child(3) .ic{background:var(--ink)}
-.ai{margin-top:16px;border-radius:24px;background:var(--ink);color:#fff;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.ai p{color:#bdb7ae;margin-top:14px}
-.ai .ph{aspect-ratio:4/3;border-radius:20px;border:1.5px dashed #6b665f;display:grid;place-items:center;color:#a59f97;font-size:13px;background:linear-gradient(135deg,#1f6b71 0%,#222 55%,#b5674f 100%)}
-@media(max-width:860px){.ai{grid-template-columns:1fr;padding:28px}}
-.an{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px}
-.an div{border:1px solid var(--line);border-radius:20px;padding:22px;background:#fff}.an b{display:block;font:300 34px Inter;letter-spacing:-.02em}.an small{color:var(--mut)}
-/* price */
-.pr{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.pc{background:#fff;border-radius:24px;padding:32px;box-shadow:0 0 1px rgba(0,0,0,.4),0 2px 4px rgba(0,0,0,.04)}
-.pc ul{list-style:none;padding:0;margin-top:16px;display:grid;gap:10px}.pc li{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px;font-size:15px}
-.pc li b{font-weight:500}
-.calc{margin-top:20px;background:var(--teal-l);border-radius:16px;padding:18px;font-size:14px}.calc input{padding:0;margin:4px 0 12px;accent-color:var(--teal-d)}.calc strong{font:300 32px Inter;letter-spacing:-.02em}
-/* team */
-.tm{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,300px));gap:20px}
-.tm .ph{aspect-ratio:1;border-radius:24px;border:1.5px dashed #b8b2aa;background:var(--tp);display:grid;place-items:center;color:var(--mut);font-size:13px;margin-bottom:14px}
-form.su{max-width:520px;background:#fff;border-radius:24px;padding:32px;box-shadow:0 0 1px rgba(0,0,0,.4),0 2px 4px rgba(0,0,0,.04)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-footer{border-top:1px solid var(--line);padding:32px 0;font-size:14px;color:var(--mut)}footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-@media(prefers-reduced-motion:reduce){#intro .p,.hero .t>*,.rv{transition:none}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
-
-/* Mobile composition */
-.mobile-menu,.hero-kicker,.flow-steps,.flow-actions{display:none}
-@media(max-width:860px){
-  html{scroll-padding-top:84px;-webkit-font-smoothing:antialiased}
-  .w{padding:0 20px}h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}
-  .btn,.chip,.opt{touch-action:manipulation;transition:background .2s,border-color .2s,transform .2s}
-  .btn:active,.chip:active,.opt:active{transform:scale(.96)}
-  .btn{min-height:48px}.btn:focus-visible,.chip:focus-visible,summary:focus-visible{outline:2px solid var(--teal-d);outline-offset:3px}
-  nav{background:rgba(253,252,252,.94)}nav .w{height:72px;gap:12px}nav .logo{font-size:25px}nav .btn{min-height:40px;padding:9px 20px;font-size:13px}
-  .mobile-menu{display:block}.mobile-menu summary{list-style:none;cursor:pointer;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center}.mobile-menu summary::-webkit-details-marker{display:none}
-  .menu-icon{width:16px;height:8px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transition:transform .2s}.mobile-menu[open] .menu-icon{transform:rotate(-45deg)}
-  .menu-panel{position:absolute;top:calc(100% + 8px);left:20px;right:20px;background:var(--bg);border-radius:24px;padding:12px;box-shadow:0 0 0 1px #00000008,0 16px 40px #00000012;display:grid;gap:4px}
-  .menu-panel a{color:var(--ink);text-decoration:none;padding:14px 16px;border-radius:14px;font-size:16px}.menu-panel a:hover{background:var(--tp)}
-  #intro{display:none}body.lock{height:auto;overflow:visible}#orb{display:none}
-  .hero{min-height:0;padding:40px 0 52px}.hero .w{gap:30px;grid-template-columns:1fr}.hero .t>*{opacity:1;transform:none}
-  .hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);margin-bottom:20px}
-  .hero-kicker::before{content:'';width:7px;height:7px;background:var(--teal);border-radius:50%}
-  h1{font-size:clamp(38px,10.6vw,60px);line-height:1.06;letter-spacing:-.045em;max-width:620px}
-  .hero p{font-size:16px;line-height:1.6;margin:20px 0 26px;max-width:540px}
-  .hero-actions{display:flex;gap:10px}.hero-actions .btn:first-child{flex:1;padding-inline:12px}.hero-actions .btn:last-child{padding-inline:22px}
-  .hero .slot{width:100%;height:228px;max-width:560px;position:relative;border-radius:28px;background:radial-gradient(ellipse at 65% 35%,#dcefef 0%,#f5f3f1 70%);overflow:hidden}
-  .hero .slot::before{content:'';position:absolute;left:50%;top:18px;width:180px;height:180px;transform:translateX(-50%) rotate(-18deg);border-radius:45% 55% 52% 48%;background:radial-gradient(ellipse at 25% 20%,#fff8ee 0%,transparent 40%),radial-gradient(ellipse at 78% 75%,var(--coral),transparent 60%),linear-gradient(130deg,var(--teal),var(--teal-d));box-shadow:inset -12px -16px 30px #1f6b7126,0 18px 30px #1f6b711a}
-  .hero .slot::after{content:'✓  Заявка подтверждена';position:absolute;left:50%;bottom:20px;transform:translateX(-50%) rotate(-3deg);white-space:nowrap;padding:14px 20px;background:#ffffffed;color:var(--teal-d);border:1px solid #fff;border-radius:16px;font-size:13px;font-weight:500;box-shadow:0 8px 24px #1f6b7112}
-  section{margin-top:0;border-radius:32px 32px 0 0;padding:56px 0}.hd{margin-bottom:28px}.hd h2{font-size:32px;line-height:1.12;letter-spacing:-.03em}.hd p{font-size:15px;line-height:1.6;margin-top:14px}
-  #flow{padding:44px 0 36px;height:auto!important;scroll-margin-top:0}.pin{position:static;height:auto;overflow:visible;padding:0;display:block}#flow .hd{margin:0 0 24px}#flow .hd p{display:block;font-size:14px;line-height:1.6}#flow h2{font-size:30px}
-  .flow-steps{display:flex;gap:8px;padding:0 20px;margin-bottom:24px}.flow-steps button{flex:1;min-width:0;min-height:44px;border:0;border-radius:12px;font:500 12px Inter;color:var(--mut);background:#ebe8e4;cursor:pointer}.flow-steps button[aria-current=step]{background:var(--teal-d);color:white}.flow-steps button:disabled{opacity:.45;cursor:not-allowed}
-  .track{display:block;padding:0 20px;transform:none!important;will-change:auto}.pn{display:none;width:100%;opacity:1!important}.pn.active{display:block}.ph0{gap:0;margin-bottom:16px}.ph0 .slot{display:none}.ph0 h3{font-size:22px;line-height:1.2;letter-spacing:-.02em}.ph0 p{font-size:13px;margin-top:6px}
-  .card{padding:18px;border-radius:28px;min-height:0;box-shadow:0 0 0 1px #00000003,0 8px 24px #00000004}.opt{min-height:82px;padding:12px;border-radius:16px;gap:12px}.opt small{margin-top:5px;font-size:12px}.opt.sel{border-color:var(--teal-d)}
-  .chips{gap:8px;margin-bottom:20px}.chip{min-height:44px;padding:10px 14px}.lbl{font-size:12px}.card input,form.su input{min-height:50px;font-size:16px;border-radius:12px;background:var(--bg);margin:8px 0 18px}
-  .card .btn{width:100%}.sum{padding:14px;border-radius:14px;font-size:13px}.salon{padding:14px}.badge{max-width:100%;font-size:12px}.via{gap:6px}.via span{font-size:11px}
-  .flow-actions{display:flex;justify-content:space-between;gap:12px;padding:20px 20px 0}.flow-actions .btn.k{flex:1}.flow-actions .btn[hidden]{display:none}.bar{display:none}
-  #feat{counter-reset:feature}.fr{position:relative;display:block;counter-increment:feature;padding:24px;margin-bottom:12px;border:0;border-radius:24px;background:var(--tp)}.fr::before{content:'0' counter(feature);display:block;margin-bottom:22px;font-size:12px;font-weight:500;color:var(--teal-d)}.fr .slot{display:none}.fr h3{font-size:27px;line-height:1.2;margin-bottom:12px}.fr p{font-size:14px;line-height:1.65}.fr.dk{padding:26px;margin:12px 0;background:var(--ink)}.fr.dk::before{color:var(--coral)}.fr.dk h3{font-size:32px}
-  .an{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:24px}.an div{border:0;border-radius:16px;padding:16px 12px;min-width:0}.an b{font-size:clamp(19px,5.5vw,30px);line-height:1.2;white-space:nowrap}.an small{display:block;font-size:11px;line-height:1.4;margin-top:8px}
-  .pr{grid-template-columns:minmax(0,1fr);gap:12px}.pc{padding:24px;border-radius:28px;box-shadow:0 0 0 1px #00000004,0 6px 18px #00000003}.pc:first-child{border-top:4px solid var(--teal)}.pc h3{font-size:22px;font-weight:500}.pc p{font-size:14px;line-height:1.6}.pc li{font-size:13px;gap:12px;align-items:baseline}.pc li b{white-space:nowrap}.pc .slot{display:none}.calc{padding:20px;margin-top:24px;border-radius:18px}.calc label{display:flex;justify-content:space-between;align-items:center}.calc input{min-height:32px;margin:8px 0 16px;cursor:pointer}.calc strong{font-size:30px;white-space:nowrap}.calc b,.calc strong{font-variant-numeric:tabular-nums}
-  .tm{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.tm .ph{border:0;border-radius:20px;aspect-ratio:4/5;background:linear-gradient(145deg,var(--tp),var(--teal-l));font-size:12px}.tm>div:nth-child(2) .ph{background:linear-gradient(145deg,var(--tp),var(--coral-l))}.tm h3{font-size:15px;line-height:1.35;text-wrap:balance}.tm p{font-size:12px;margin-top:5px}.tm .slot{display:none}
-  #signup .hd .slot{display:none}form.su{padding:22px;border-radius:28px;max-width:none}.two{grid-template-columns:1fr;gap:0}form.su .btn{min-height:52px;margin-top:6px}#suok{font-size:13px}
-  footer{padding:24px 0 max(24px,env(safe-area-inset-bottom));font-size:12px}.rv{transform:translateY(16px)}
+:root {
+  --bg: #fdfcfc;
+  --tp: #f5f3f1;
+  --line: #ebe8e4;
+  --ink: #000000;
+  --mut: #777169;
+  --teal: #3a9ba0;
+  --teal-d: #1f6b71;
+  --coral: #e0856a;
+  --coral-l: #f7e3dc;
+  --teal-l: #dcefef;
+  --card-sh: 0 0 1px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.04);
 }
-@media(min-width:540px) and (max-width:860px){.hero .t{max-width:620px}.hero .slot{height:260px}.hero .slot::before{width:210px;height:210px}.hero-actions{max-width:440px}.pr{grid-template-columns:1fr 1fr}.pc:first-child{grid-column:1/-1}.tm{max-width:560px}.two{grid-template-columns:1fr 1fr;gap:12px}}
-@media(prefers-reduced-motion:reduce){.btn,.chip,.opt,.menu-icon{transition:none}}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.5 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: .01em;
+  -webkit-font-smoothing: antialiased;
+}
 
+/* Three.js Background Canvas */
+#orb-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity .6s ease;
+}
+
+/* Top Navigation Bar */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(253, 252, 252, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.logo {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -.02em;
+  color: var(--teal);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.logo b { color: var(--ink); }
+.logo-pill {
+  font: 500 11px 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--teal-l);
+  color: var(--teal-d);
+}
+.nav-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dot {
+  width: 24px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  border: 0;
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.2,.7,.2,1);
+  position: relative;
+}
+.dot:hover { background: #d0cbc4; }
+.dot.active {
+  width: 42px;
+  background: var(--teal);
+}
+.dot[data-title]:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Buttons & Badges */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font: 500 13px 'Inter', sans-serif;
+  padding: 9px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .2s ease;
+}
+.btn:hover { background: var(--tp); border-color: #d5d0c9; }
+.btn.k { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn.k:hover { background: #222; }
+.btn.teal { background: var(--teal); color: #fff; border-color: var(--teal); }
+.btn.teal:hover { background: var(--teal-d); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--teal-d);
+  margin-bottom: 14px;
+}
+.eyebrow::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+.eyebrow.coral { color: #a4482c; }
+.eyebrow.coral::before { background: var(--coral); }
+
+/* Slide Deck Container */
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+}
+.slide {
+  position: absolute;
+  inset: 64px 0 56px 0;
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(28px) scale(0.985);
+  transition: opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1);
+  overflow-y: auto;
+}
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+.slide.prev {
+  transform: translateY(-28px) scale(0.985);
+}
+.slide-inner {
+  width: 100%;
+  max-width: 1240px;
+  margin: auto;
+}
+
+/* Staggered Reveal Children inside Active Slide */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .55s cubic-bezier(.2,.7,.2,1), transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.slide.active .stagger > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.slide.active .stagger > *:nth-child(1) { transition-delay: .06s; }
+.slide.active .stagger > *:nth-child(2) { transition-delay: .14s; }
+.slide.active .stagger > *:nth-child(3) { transition-delay: .22s; }
+.slide.active .stagger > *:nth-child(4) { transition-delay: .30s; }
+.slide.active .stagger > *:nth-child(5) { transition-delay: .38s; }
+
+/* Typography */
+h1, h2, h3 {
+  font-weight: 300;
+  letter-spacing: -.025em;
+  line-height: 1.08;
+}
+h1 { font-size: clamp(38px, 5vw, 68px); }
+h2 { font-size: clamp(28px, 3.4vw, 44px); }
+h3 { font-size: 20px; font-weight: 500; letter-spacing: -.01em; }
+p { color: var(--mut); }
+.lead { font-size: clamp(16px, 1.5vw, 20px); line-height: 1.45; max-width: 580px; }
+
+/* Layouts & Cards */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+.grid-2-asym { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 32px; align-items: center; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--card-sh);
+  transition: transform .25s ease, border-color .25s ease;
+}
+.card:hover { border-color: #d5cfc7; }
+.card.soft { background: var(--tp); box-shadow: none; }
+.card.dark { background: var(--ink); color: #fff; border-color: #222; }
+.card.dark p { color: #bdb7ae; }
+.card.teal-tint { background: var(--teal-l); border-color: #bce0e0; }
+.card.coral-tint { background: var(--coral-l); border-color: #f0cdc1; }
+
+/* Website Photo / Screenshot Slot Component */
+.browser-frame {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.07), 0 0 1px rgba(0,0,0,.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.browser-bar {
+  height: 36px;
+  background: var(--tp);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 12px;
+}
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+.browser-dots i {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #dcd7d0;
+  display: block;
+}
+.browser-dots i:nth-child(1) { background: #e0856a; }
+.browser-dots i:nth-child(2) { background: #e6b86a; }
+.browser-dots i:nth-child(3) { background: #3a9ba0; }
+.browser-url {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 11px;
+  color: var(--mut);
+}
+
+.photo-slot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #f8f6f4 0%, #eef7f7 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background .25s ease, border-color .25s ease;
+}
+.photo-slot.portrait { aspect-ratio: 4 / 4.3; }
+.photo-slot.tall { aspect-ratio: 9 / 14; }
+.photo-slot:hover {
+  background: linear-gradient(135deg, #f2efec 0%, #e1f2f2 100%);
+}
+.photo-slot.dragover {
+  outline: 2px dashed var(--teal);
+  outline-offset: -8px;
+  background: var(--teal-l);
+}
+.photo-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  display: none;
+}
+.photo-slot.has-image img { display: block; }
+.photo-slot .slot-placeholder {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 280px;
+}
+.slot-icon {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px dashed var(--teal);
+  color: var(--teal-d);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(58,155,160,.12);
+}
+.slot-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.slot-sub {
+  font-size: 12px;
+  color: var(--mut);
+  line-height: 1.35;
+}
+.photo-slot .slot-change-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 3;
+  background: rgba(0,0,0,.75);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.photo-slot.has-image:hover .slot-change-badge { opacity: 1; }
+
+/* Pills & Tags */
+.pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.pill {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pill i {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+/* Big Stat Numbers */
+.big-stat {
+  font-size: clamp(48px, 6vw, 82px);
+  font-weight: 300;
+  letter-spacing: -.03em;
+  line-height: 1;
+  color: var(--coral);
+  margin: 8px 0 12px;
+}
+.big-stat.teal { color: var(--teal); }
+.big-stat.ink { color: var(--ink); }
+
+/* Competitor Table */
+.comp-table {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.comp-row {
+  display: grid;
+  grid-template-columns: 180px 1.2fr 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 26px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.comp-row:hover { transform: translateX(4px); }
+.comp-row.head {
+  background: transparent;
+  border: 0;
+  padding: 0 26px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--mut);
+}
+.comp-row.ontime {
+  background: linear-gradient(90deg, var(--teal-l) 0%, #ffffff 100%);
+  border: 1.5px solid var(--teal);
+  box-shadow: 0 10px 28px rgba(58,155,160,.12);
+}
+
+/* AI Camera Before/After Slider */
+.ai-compare {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #181a1b;
+  border: 1px solid #333;
+  user-select: none;
+}
+.ai-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+   justify-content: space-between;
+  padding: 20px;
+}
+.ai-before {
+  background: radial-gradient(circle at 35% 30%, #484a4d, #1f2022 75%);
+  color: #fff;
+}
+.ai-after {
+  background: radial-gradient(circle at 65% 30%, var(--teal), #163e42 50%, var(--coral) 100%);
+  color: #fff;
+  clip-path: inset(0 0 0 50%);
+}
+.ai-divider {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #fff;
+  z-index: 10;
+  pointer-events: none;
+}
+.ai-handle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0,0,0,.35);
+}
+.prompt-bar {
+  margin-top: 12px;
+  background: #141414;
+  border: 1px solid #2c2c2c;
+  border-radius: 16px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #fff;
+}
+.prompt-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.p-chip {
+  background: #252525;
+  color: #ccc;
+  border: 1px solid #383838;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: .2s;
+}
+.p-chip.active, .p-chip:hover {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
+
+/* Fintech Flow Animation */
+.fintech-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 14px;
+  align-items: center;
+  margin-top: 24px;
+}
+.flow-arrow {
+  font-size: 22px;
+  color: var(--teal);
+  font-weight: 600;
+  transition: transform .4s ease;
+}
+.fintech-flow.pulsing .flow-arrow {
+  transform: scale(1.35) translateX(4px);
+  color: var(--coral);
+}
+
+/* Showcase Tabs (Slide 6) */
+.tab-bar {
+  display: inline-flex;
+  background: var(--tp);
+  padding: 5px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  gap: 4px;
+  margin-bottom: 18px;
+}
+.tab-btn {
+  border: 0;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font: 500 13px 'Inter', sans-serif;
+  color: var(--mut);
+  cursor: pointer;
+  transition: .2s;
+}
+.tab-btn.active {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* Bottom Footer Controls */
+.bottombar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 56px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(253, 252, 252, 0.86);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--mut);
+}
+.progress-track {
+  position: absolute;
+  top: -2px; left: 0; right: 0;
+  height: 3px;
+  background: transparent;
+}
+.progress-fill {
+  height: 100%;
+  width: 8%;
+  background: linear-gradient(90deg, var(--teal), var(--coral));
+  transition: width .4s cubic-bezier(.2,.7,.2,1);
+}
+
+/* Overview Grid Modal */
+.overview-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(253, 252, 252, 0.96);
+  backdrop-filter: blur(16px);
+  padding: 80px 48px 48px;
+  overflow-y: auto;
+  display: none;
+}
+.overview-modal.open { display: block; }
+.overview-grid {
+  max-width: 1200px;
+  margin: 24px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+.ov-card {
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  transition: .2s;
+}
+.ov-card:hover, .ov-card.active {
+  border-color: var(--teal);
+  background: var(--teal-l);
+  transform: translateY(-3px);
+}
+.ov-num { font-size: 12px; font-weight: 600; color: var(--teal-d); }
+.ov-title { font-size: 16px; font-weight: 500; margin-top: 6px; color: var(--ink); }
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--teal-d);
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .slide { padding: 20px; }
+  .grid-2, .grid-2-asym, .grid-3, .grid-4, .fintech-flow { grid-template-columns: 1fr; }
+  .comp-row { grid-template-columns: 1fr; gap: 8px; }
+  .comp-row.head { display: none; }
+  .nav-dots { display: none; }
+}
 </style>
 </head>
-<body class="lock">
-<canvas id="orb" aria-hidden="true"></canvas>
-<div id="intro">
-  <div class="p" style="--i:0"><span>Фото 1</span></div><div class="p" style="--i:1"><span>Фото 2</span></div><div class="p" style="--i:2"><span>Фото 3</span></div><div class="p" style="--i:3"><span>Фото 4</span></div>
-  <div class="lg"><div class="logo">On<b>Time</b></div></div>
+<body>
+
+<canvas id="orb-canvas" aria-hidden="true"></canvas>
+<input type="file" id="global-file-input" accept="image/*" style="display:none">
+
+<!-- Верхняя панель навигации -->
+<header class="topbar">
+  <div class="logo" onclick="goToSlide(0)">
+    <span>On<b>Time</b></span>
+    <span class="logo-pill">Pitch Deck 2026</span>
+  </div>
+  <div class="nav-dots" id="nav-dots"></div>
+  <div class="top-actions">
+    <button class="btn" type="button" onclick="toggleOverview()" title="Сетка слайдов (клавиша G)">☷ Слайды</button>
+    <button class="btn" type="button" onclick="clearSavedPhotos()" title="Очистить загруженные фото">↺ Сброс фото</button>
+    <button class="btn k" type="button" onclick="toggleFullScreen()" title="Полный экран (клавиша F)">⛶ Полный экран</button>
+  </div>
+</header>
+
+<!-- Контейнер слайдов -->
+<main class="deck" id="deck">
+
+  <!-- СЛАЙД 1: ТИТУЛЬНЫЙ + ГЛАВНЫЙ СКРИНШОТ САЙТА -->
+  <section class="slide active" data-title="1. О проекте OnTime" data-orb-x="0.72" data-orb-y="0.5" data-orb-s="260" data-orb-h="0.45">
+    <div class="slide-inner grid-2-asym stagger">
+      <div>
+        <div class="eyebrow">Платформа автоматизации услуг · B2B & B2C</div>
+        <h1>Меняем индустрию коммерческих услуг</h1>
+        <p class="lead" style="margin-top:20px">
+          Первая платформа, которая решает боли не только на стороне бизнеса, но и клиента — от онлайн-записи без звонков до AI-визуализации результата.
+        </p>
+        <div class="pills">
+          <span class="pill"><i></i> Быстро</span>
+          <span class="pill"><i style="background:var(--coral)"></i> Удобно</span>
+          <span class="pill"><i style="background:var(--ink)"></i> Для всех</span>
+        </div>
+        <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap">
+          <button class="btn k" onclick="nextSlide()">Смотреть презентацию →</button>
+          <button class="btn" onclick="goToSlide(5)">Перейти к скриншотам сайта</button>
+        </div>
+      </div>
+
+      <!-- Слот для фото главной страницы сайта -->
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots"><i></i><i></i><i></i></div>
+          <div class="browser-url">https://ontime.by — Главный экран платформы</div>
+        </div>
+        <div class="photo-slot" data-slot="hero-main">
+          <!-- Вы можете прописать src="ваш_скриншот.png" и добавить класс has-image к .photo-slot -->
+          <img src="" alt="Главный экран сайта OnTime">
+          <div class="slot-placeholder">
+            <div class="slot-icon">＋</div>
+            <div class="slot-title">Вставьте скриншот главного экрана сайта</div>
+            <div class="slot-sub">Кликните или перетащите изображение сюда (сохраняется в браузере автоматически)</div>
+          </div>
+          <span class="slot-change-badge">Изменить скриншот</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 2: ПРОБЛЕМА РЫНКА -->
+  <section class="slide" data-title="2. Проблема рынка" data-orb-x="0.5" data-orb-y="0.2" data-orb-s="180" data-orb-h="0.8">
+    <div class="slide-inner stagger">
+      <div>
+        <div class="eyebrow coral">Проблема рынка</div>
+        <h2>Почему текущий рынок неэффективен?</h2>
+      </div>
+
+      <div class="grid-2" style="margin-top:28px; align-items:stretch">
+        <div class="card" style="border-top: 4px solid var(--coral)">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px">
+            <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">Боль Клиента (B2C)</span>
+            <span style="font-size:24px">😟</span>
+          </div>
+          <div style="display:grid; gap:18px">
+            <div style="padding:16px; border-radius:16px; background:var(--tp)">
+              <h3>1. Страх неопределенности</h3>
+              <p style="margin-top:6px; font-size:14px">
+                Дискомфорт от непредсказуемости и невозможности заранее увидеть результат услуги на себе до визита к мастеру.
+              </p>
+            </div>
+            <div style="padding:16px; border-radius:16px; background:var(--tp)">
+              <h3>2. Сложность записи</h3>
+              <p style="margin-top:6px; font-size:14px">
+                Необходимость подстраиваться под рабочие часы и телефонные звонки вместо удобного онлайн-формата 24/7.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--teal)">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px">
+            <span class="logo-pill">Боль Бизнеса (B2B)</span>
+            <span style="font-size:24px">📉</span>
+          </div>
+          <div style="display:grid; gap:18px">
+            <div style="padding:16px; border-radius:16px; background:var(--tp)">
+              <h3>1. Забывчивость клиентов — 37.6% неявок</h3>
+              <p style="margin-top:6px; font-size:14px">
+                <strong>37.6%</strong> пропущенных визитов происходят исключительно из-за отсутствия своевременных автонапоминаний.
+              </p>
+            </div>
+            <div style="padding:16px; border-radius:16px; background:var(--tp)">
+              <h3>2. Проблемы устаревшего софта</h3>
+              <p style="margin-top:6px; font-size:14px">
+                Ручные ошибки администраторов, накладки графиков мастеров, перегруженный интерфейс и отсутствие единой синхронизации.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:12px; margin-top:18px">
+        Источники: BankMyCell, ВЦИОМ, ProDoctorov, YCLIENTS, исследование показателей клиентского стресса и финансовых потерь МСБ.
+      </p>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 3: МАСШТАБ ПРОБЛЕМЫ + ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР ПОТЕРЬ -->
+  <section class="slide" data-title="3. Масштаб проблемы" data-orb-x="0.82" data-orb-y="0.55" data-orb-s="240" data-orb-h="0.9">
+    <div class="slide-inner stagger">
+      <div>
+        <div class="eyebrow coral">Масштаб проблемы</div>
+        <h2>Ежедневные потери B2B клиентов</h2>
+      </div>
+
+      <div class="grid-3" style="margin-top:28px; align-items:stretch">
+        <div class="card">
+          <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">Клиентский стресс</span>
+          <div class="big-stat">до <span class="count" data-target="76">76</span>%</div>
+          <h3>Клиентов</h3>
+          <p style="margin-top:8px; font-size:14px">
+            Регулярно испытывают стресс от телефонных звонков, долгих ожиданий ответа и непредсказуемого результата услуг.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">Финансовые потери</span>
+          <div class="big-stat">до <span class="count" data-target="45">45</span>%</div>
+          <h3>Выручки</h3>
+          <p style="margin-top:8px; font-size:14px">
+            Ежемесячно теряет малый и средний бизнес из-за неявок клиентов, поздних отмен и ошибок устаревшего софта.
+          </p>
+        </div>
+
+        <!-- Интерактивный симулятор потерь бизнеса -->
+        <div class="card coral-tint">
+          <h3>Калькулятор потерь салона</h3>
+          <p style="font-size:13px; margin-top:4px; color:#6e4335">Оцените, сколько теряет бизнес без OnTime:</p>
+          <div style="margin-top:16px">
+            <label style="font-size:13px; display:flex; justify-content:space-between">
+              <span>Оборот салона в месяц:</span>
+              <b id="loss-rev-val">15 000 BYN</b>
+            </label>
+            <input type="range" id="loss-rev" min="5000" max="50000" step="1000" value="15000" oninput="calcLoss()">
+          </div>
+          <div style="margin-top:12px; padding:16px; border-radius:16px; background:#fff">
+            <span style="font-size:12px; color:var(--mut)">Потери до 45% выручки в месяц:</span>
+            <div style="font-size:28px; font-weight:600; color:#a4482c; margin-top:4px" id="loss-total">до 6 750 BYN</div>
+            <span style="font-size:11px; color:var(--teal-d)">OnTime устраняет простои и ручные накладки</span>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:12px; margin-top:18px">
+        Источники: BankMyCell, ВЦИОМ, ProDoctorov, YCLIENTS, исследование показателей клиентского стресса и финансовых потерь МСБ.
+      </p>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 4: КОНКУРЕНТЫ -->
+  <section class="slide" data-title="4. Отличие от конкурентов" data-orb-x="0.18" data-orb-y="0.7" data-orb-s="200" data-orb-h="0.3">
+    <div class="slide-inner stagger">
+      <div>
+        <div class="eyebrow">Безоговорочное превосходство</div>
+        <h2>Чем мы отличаемся от конкурентов</h2>
+      </div>
+
+      <div class="comp-table">
+        <div class="comp-row head">
+          <div>Платформа</div>
+          <div>Критический минус / UX</div>
+          <div>Финансовая модель</div>
+        </div>
+
+        <div class="comp-row">
+          <div><h3 style="font-size:24px; font-weight:600">Zen24</h3></div>
+          <div>
+            <p style="color:var(--ink); font-weight:500">Частые технические сбои</p>
+            <p style="font-size:14px">Нет прямой синхронизации внешних календарей</p>
+          </div>
+          <div>
+            <span style="color:#c85a3a; font-weight:600; font-size:14px">Плавающие ежемесячные оплаты</span>
+            <p style="font-size:13px">Сильно зависят от количества SMS-рассылок</p>
+          </div>
+        </div>
+
+        <div class="comp-row">
+          <div><h3 style="font-size:24px; font-weight:600">Bitrix24</h3></div>
+          <div>
+            <p style="color:var(--ink); font-weight:500">Сложный, перегруженный кнопками интерфейс</p>
+            <p style="font-size:14px">Высокий порог входа для линейного персонала и клиентов</p>
+          </div>
+          <div>
+            <span style="color:#b5892e; font-weight:600; font-size:14px">Ориентирован только на B2B клиентов</span>
+            <p style="font-size:13px">Выгодные тарифы, но отсутствие фокуса на клиентском B2C-опыте</p>
+          </div>
+        </div>
+
+        <div class="comp-row ontime">
+          <div>
+            <div class="logo" style="font-size:28px">On<b>Time</b></div>
+          </div>
+          <div>
+            <p style="color:var(--ink); font-weight:600">Безотказность & AI-интеграция для клиента</p>
+            <p style="font-size:14px; color:var(--teal-d)">Чистый минимализм в UI — запись в несколько касаний</p>
+          </div>
+          <div>
+            <span style="color:var(--teal-d); font-weight:600; font-size:15px">Фиксированная ежемесячная оплата</span>
+            <p style="font-size:13px; color:var(--teal-d)">Не зависит от количества клиентов и транзакций</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 5: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2C + СКРИНШОТ САЙТА -->
+  <section class="slide" data-title="5. Преимущество B2C" data-orb-x="0.78" data-orb-y="0.45" data-orb-s="230" data-orb-h="0.5">
+    <div class="slide-inner grid-2-asym stagger">
+      <div>
+        <div class="eyebrow">Конкурентное преимущество B2C</div>
+        <h2>Почему клиенты выбирают нас?</h2>
+
+        <div style="display:grid; gap:16px; margin-top:24px">
+          <div class="card">
+            <span class="logo-pill">01 · Быстрое бронирование</span>
+            <h3 style="margin-top:10px; font-size:22px">Запись в два клика</h3>
+            <p style="margin-top:6px; font-size:15px">
+              Интуитивный поиск услуг по смарт-фильтру. Мгновенное бронирование свободного окна и просмотр истории визитов без единого телефонного звонка.
+            </p>
+          </div>
+
+          <div class="card">
+            <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">02 · Визуализация до визита</span>
+            <h3 style="margin-top:10px; font-size:22px">Технология AI Result</h3>
+            <p style="margin-top:6px; font-size:15px">
+              Уникальная система визуализации результата до похода в салон. Полное устранение страха неизвестности перед сменой имиджа.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Слот для скриншота клиентской записи сайта -->
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots"><i></i><i></i><i></i></div>
+          <div class="browser-url">https://ontime.by/booking — Интерфейс онлайн-записи B2C</div>
+        </div>
+        <div class="photo-slot" data-slot="b2c-booking">
+          <img src="" alt="Скриншот записи клиента на сайте">
+          <div class="slot-placeholder">
+            <div class="slot-icon">＋</div>
+            <div class="slot-title">Скриншот страницы записи (B2C)</div>
+            <div class="slot-sub">Кликните или перетащите сюда скриншот выбора услуги, мастера и времени с вашего сайта</div>
+          </div>
+          <span class="slot-change-badge">Заменить фото</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 6: ВИТРИНА ИНТЕРФЕЙСА САЙТА (СПЕЦИАЛЬНЫЙ СЛАЙД ДЛЯ СКРИНШОТОВ) -->
+  <section class="slide" data-title="6. Интерфейс веб-сайта" data-orb-x="0.2" data-orb-y="0.3" data-orb-s="190" data-orb-h="0.4">
+    <div class="slide-inner stagger">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px">
+        <div>
+          <div class="eyebrow">Демонстрация продукта</div>
+          <h2>Интерфейс веб-платформы OnTime</h2>
+        </div>
+        <div class="tab-bar" role="tablist">
+          <button class="tab-btn active" onclick="switchShowcase(0, this)">1. Каталог и запись</button>
+          <button class="tab-btn" onclick="switchShowcase(1, this)">2. Панель салона (B2B)</button>
+          <button class="tab-btn" onclick="switchShowcase(2, this)">3. Кабинет и расписание</button>
+        </div>
+      </div>
+
+      <!-- Вкладка 1 -->
+      <div class="showcase-pane grid-2-asym" id="sc-pane-0" style="margin-top:12px">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dots"><i></i><i></i><i></i></div>
+            <div class="browser-url">https://ontime.by/catalog — Десктопная версия</div>
+          </div>
+          <div class="photo-slot" data-slot="site-screen-1">
+            <img src="" alt="Скриншот сайта 1">
+            <div class="slot-placeholder">
+              <div class="slot-icon">🖥</div>
+              <div class="slot-title">Экран 1: Каталог услуг / Выбор времени</div>
+              <div class="slot-sub">Нажмите или перетащите скриншот десктопной версии сайта</div>
+            </div>
+            <span class="slot-change-badge">Заменить скриншот</span>
+          </div>
+        </div>
+        <div class="browser-frame" style="max-width:340px; justify-self:center; width:100%">
+          <div class="browser-bar">
+            <div class="browser-dots"><i></i><i></i><i></i></div>
+            <div class="browser-url">Мобильная версия</div>
+          </div>
+          <div class="photo-slot portrait" data-slot="site-mobile-1">
+            <img src="" alt="Мобильный скриншот">
+            <div class="slot-placeholder">
+              <div class="slot-icon">📱</div>
+              <div class="slot-title">Мобильный вид / Подтверждение</div>
+              <div class="slot-sub">Вставьте вертикальный скриншот мобильной адаптации или уведомления</div>
+            </div>
+            <span class="slot-change-badge">Заменить скриншот</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Вкладка 2 -->
+      <div class="showcase-pane grid-2" id="sc-pane-1" style="margin-top:12px; display:none">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dots"><i></i><i></i><i></i></div>
+            <div class="browser-url">https://ontime.by/admin — Управление заявками</div>
+          </div>
+          <div class="photo-slot" data-slot="site-screen-2">
+            <img src="" alt="Скриншот панели администратора">
+            <div class="slot-placeholder">
+              <div class="slot-icon">📊</div>
+              <div class="slot-title">Экран 2: Панель администратора салона</div>
+              <div class="slot-sub">Вставьте скриншот управления заявками и статусами</div>
+            </div>
+            <span class="slot-change-badge">Заменить скриншот</span>
+          </div>
+        </div>
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dots"><i></i><i></i><i></i></div>
+            <div class="browser-url">https://ontime.by/analytics — Воронка и выручка</div>
+          </div>
+          <div class="photo-slot" data-slot="site-screen-3">
+            <img src="" alt="Скриншот аналитики">
+            <div class="slot-placeholder">
+              <div class="slot-icon">📈</div>
+              <div class="slot-title">Экран 3: Аналитика и статистика</div>
+              <div class="slot-sub">Вставьте скриншот графиков выручки и загрузки мастеров</div>
+            </div>
+            <span class="slot-change-badge">Заменить скриншот</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Вкладка 3 -->
+      <div class="showcase-pane grid-2" id="sc-pane-2" style="margin-top:12px; display:none">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dots"><i></i><i></i><i></i></div>
+            <div class="browser-url">https://ontime.by/calendar — Синхронизация расписания</div>
+          </div>
+          <div class="photo-slot" data-slot="site-screen-4">
+            <img src="" alt="Скриншот календаря">
+            <div class="slot-placeholder">
+              <div class="slot-icon">🗓</div>
+              <div class="slot-title">Экран 4: Расписание и Google Calendar</div>
+              <div class="slot-sub">Вставьте скриншот сетки расписания мастеров</div>
+            </div>
+            <span class="slot-change-badge">Заменить скриншот</span>
+          </div>
+        </div>
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dots"><i></i><i></i><i></i></div>
+            <div class="browser-url">https://ontime.by/profile — Профиль организации</div>
+          </div>
+          <div class="photo-slot" data-slot="site-screen-5">
+            <img src="" alt="Скриншот настроек">
+            <div class="slot-placeholder">
+              <div class="slot-icon">⚙️</div>
+              <div class="slot-title">Экран 5: Тарифы и настройка услуг</div>
+              <div class="slot-sub">Вставьте скриншот конструктора услуг и мастеров</div>
+            </div>
+            <span class="slot-change-badge">Заменить скриншот</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 7: КИЛЛЕР-ФИЧА AI КАМЕРА -->
+  <section class="slide" data-title="7. Киллер-фича: AI Камера" data-orb-x="0.75" data-orb-y="0.5" data-orb-s="250" data-orb-h="0.85">
+    <div class="slide-inner grid-2-asym stagger">
+      <div>
+        <div class="eyebrow coral">Киллер-фича: AI Камера</div>
+        <h2>Генерация желаемого результата</h2>
+
+        <div style="display:grid; gap:14px; margin-top:20px">
+          <div class="card soft" style="padding:18px 22px">
+            <h3>1. Анализ в реальном времени</h3>
+            <p style="font-size:14px; margin-top:4px">
+              Клиент наводит камеру смартфона. AI мгновенно сканирует геометрию лица и структуру волос.
+            </p>
+          </div>
+          <div class="card soft" style="padding:18px 22px">
+            <h3>2. Генерация по текстовому промпту</h3>
+            <p style="font-size:14px; margin-top:4px">
+              Ввод текста (например, «блонд каре»). Нейросеть достраивает реалистичный образ прямо поверх анализа с камеры.
+            </p>
+          </div>
+          <div class="card dark" style="padding:18px 22px">
+            <div style="display:flex; justify-content:space-between; align-items:center">
+              <h3 style="color:#fff">3. Драйвер монетизации</h3>
+              <span class="logo-pill" style="background:var(--coral); color:#fff">29.97 BYN / мес</span>
+            </div>
+            <p style="font-size:14px; margin-top:4px">
+              Единый визуальный образ для мастера и клиента. Доступно по подписке (29 BYN/мес) без жесткой привязки к организации.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Интерактивный модуль сравнения Original / AI Result -->
+      <div>
+        <div class="ai-compare" id="ai-compare">
+          <div class="ai-layer ai-before photo-slot" data-slot="ai-orig" style="aspect-ratio:auto">
+            <img src="" alt="Original">
+            <div class="slot-placeholder" style="color:#fff">
+              <span class="logo-pill" style="background:rgba(255,255,255,.15); color:#fff">Original (До)</span>
+              <div style="font-size:13px; color:#bbb; margin-top:6px">Кликните, чтобы загрузить фото «До»</div>
+            </div>
+          </div>
+          <div class="ai-layer ai-after photo-slot" id="ai-after-layer" data-slot="ai-res" style="aspect-ratio:auto">
+            <img src="" alt="AI Result">
+            <div class="slot-placeholder" style="color:#fff">
+              <span class="logo-pill" style="background:#fff; color:var(--teal-d)">✨ AI Result (После)</span>
+              <div id="ai-preview-caption" style="font-size:15px; font-weight:500; margin-top:8px">"Make my hair shorter and textured"</div>
+              <div style="font-size:12px; color:#dcefef">Кликните, чтобы загрузить скриншот AI-результата</div>
+            </div>
+          </div>
+          <div class="ai-divider" id="ai-divider"><div class="ai-handle">↔</div></div>
+        </div>
+
+        <div style="margin-top:10px; display:flex; align-items:center; gap:12px">
+          <span style="font-size:12px; color:var(--mut); white-space:nowrap">Сравнение До/После:</span>
+          <input type="range" min="5" max="95" value="50" oninput="moveAiSlider(this.value)">
+        </div>
+
+        <div class="prompt-bar">
+          <span style="font-size:13px; color:var(--teal)">✦ Prompt:</span>
+          <div class="prompt-chips">
+            <button class="p-chip active" onclick="setPrompt(this, 'Make my hair shorter and textured')">"Make my hair shorter and textured"</button>
+            <button class="p-chip" onclick="setPrompt(this, 'Блонд каре с мягкими волнами')">«Блонд каре»</button>
+            <button class="p-chip" onclick="setPrompt(this, 'Текстурный кроп и плавный фейд')">«Текстурный кроп»</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 8: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2B + СИМУЛЯТОР ДЕДЛАЙНА -->
+  <section class="slide" data-title="8. Преимущество B2B" data-orb-x="0.25" data-orb-y="0.5" data-orb-s="210" data-orb-h="0.2">
+    <div class="slide-inner stagger">
+      <div>
+        <div class="eyebrow">Конкурентное преимущество B2B</div>
+        <h2>Полный контроль и защита бизнеса</h2>
+      </div>
+
+      <div class="grid-3" style="margin-top:24px; align-items:stretch">
+        <!-- Карточка 1 с интерактивным симулятором формулы -->
+        <div class="card teal-tint">
+          <span class="logo-pill" style="background:#fff">Защита расписания</span>
+          <h3 style="margin-top:12px; font-size:22px">Алгоритм защиты времени</h3>
+          <p style="margin-top:8px; font-size:14px; color:var(--teal-d)">
+            Формула дедлайна: <b>(Начало − Сейчас) × 0.9</b>. Если администратор не успел подтвердить заявку, запись автоматически отменяется.
+          </p>
+          <div style="margin-top:16px; background:#fff; padding:14px; border-radius:16px">
+            <label style="font-size:12px; display:flex; justify-content:space-between">
+              <span>До визита осталось:</span>
+              <b id="dl-hours-lbl">10 ч.</b>
+            </label>
+            <input type="range" min="1" max="24" value="10" oninput="calcDeadline(this.value)" style="margin:8px 0">
+            <div style="font-size:13px; color:var(--ink)">
+              Лимит на подтверждение: <b style="color:var(--teal-d)" id="dl-res">9.0 ч.</b>
+            </div>
+            <div style="font-size:11px; color:var(--mut); margin-top:2px" id="dl-note">Буфер безопасности для клиента: 1.0 ч.</div>
+          </div>
+        </div>
+
+        <!-- Карточка 2: Глубокая аналитика -->
+        <div class="card">
+          <span class="logo-pill">Все метрики в одном окне</span>
+          <h3 style="margin-top:12px; font-size:22px">Глубокая аналитика</h3>
+          <p style="margin-top:8px; font-size:14px">
+            Моментальный срез: выручка, подтвержденные, отмененные и истекшие записи. Вся воронка конверсии в реальном времени.
+          </p>
+          <div class="grid-2" style="gap:10px; margin-top:16px">
+            <div style="padding:12px; background:var(--tp); border-radius:14px">
+              <b style="font-size:22px">5 520 BYN</b>
+              <div style="font-size:11px; color:var(--mut)">Выручка за период</div>
+            </div>
+            <div style="padding:12px; background:var(--tp); border-radius:14px">
+              <b style="font-size:22px; color:var(--teal-d)">82%</b>
+              <div style="font-size:11px; color:var(--mut)">Загрузка персонала</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Карточка 3: Бесшовная интеграция + слот под скриншот -->
+        <div class="card">
+          <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">Экосистема</span>
+          <h3 style="margin-top:12px; font-size:22px">Бесшовная интеграция</h3>
+          <p style="margin-top:8px; font-size:14px">
+            Прямая двусторонняя синхронизация с <b>Google Calendar</b> (учет общей занятости персонала) и мгновенные уведомления в <b>Telegram</b> и <b>Email</b>.
+          </p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:18px">
+            <span class="pill" style="font-size:12px; padding:6px 12px"><i></i> Google Calendar</span>
+            <span class="pill" style="font-size:12px; padding:6px 12px"><i style="background:var(--coral)"></i> Telegram Bot</span>
+            <span class="pill" style="font-size:12px; padding:6px 12px"><i style="background:var(--ink)"></i> Email</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 9: FINTECH ИННОВАЦИЯ (МАРШРУТИЗАЦИЯ ПЛАТЕЖЕЙ) -->
+  <section class="slide" data-title="9. Fintech Инновация" data-orb-x="0.5" data-orb-y="0.5" data-orb-s="220" data-orb-h="0.6">
+    <div class="slide-inner stagger">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px">
+        <div>
+          <div class="eyebrow">Fintech Инновация</div>
+          <h2>Маршрутизация платежей без потерь</h2>
+          <p class="lead" style="margin-top:10px">
+            Мы выступаем маршрутизатором: клиент платит комиссию онлайн, а эквайринг мы полностью берем на себя. Организация не несет скрытых потерь.
+          </p>
+        </div>
+        <div style="background:#fff; padding:12px 18px; border-radius:16px; border:1px solid var(--line); display:flex; align-items:center; gap:12px">
+          <span style="font-size:13px; color:var(--mut)">Стоимость услуги:</span>
+          <input type="number" id="fin-price" value="100" min="10" max="1000" step="10" style="width:85px; padding:6px 10px; border:1px solid var(--line); border-radius:8px; font:600 15px Inter" oninput="updateFintech()">
+          <span style="font-weight:600">BYN</span>
+          <button class="btn teal" onclick="pulseFintech()">Провести сплит →</button>
+        </div>
+      </div>
+
+      <div class="fintech-flow" id="fintech-flow">
+        <div class="card">
+          <span class="logo-pill">Шаг 1 · Capture</span>
+          <h3 style="margin-top:12px; font-size:22px">Списание и Сплит</h3>
+          <div class="big-stat ink" style="font-size:42px; margin:12px 0" id="fin-total">103.5 BYN</div>
+          <p style="font-size:14px">
+            Клиент бронирует онлайн. Банк автоматически расщепляет (сплитует) транзакцию на <b>два IBAN-счета</b> в момент Capture.
+          </p>
+        </div>
+
+        <div class="flow-arrow">➔</div>
+
+        <div class="card teal-tint">
+          <span class="logo-pill" style="background:#fff">IBAN Организации</span>
+          <h3 style="margin-top:12px; font-size:22px">100% Бизнесу</h3>
+          <div class="big-stat teal" style="font-size:42px; margin:12px 0" id="fin-biz">100 BYN</div>
+          <p style="font-size:14px; color:var(--teal-d)">
+            Организация получает ровно 100% стоимости своей услуги. <b>Без скрытых процентов</b> и комиссий за эквайринг.
+          </p>
+        </div>
+
+        <div class="flow-arrow">＋</div>
+
+        <div class="card coral-tint">
+          <span class="logo-pill" style="background:#fff; color:#a4482c">IBAN Платформы</span>
+          <h3 style="margin-top:12px; font-size:22px">Доход Платформы</h3>
+          <div class="big-stat" style="font-size:42px; margin:12px 0">3.5 BYN</div>
+          <p style="font-size:14px; color:#6e4335">
+            Фиксированная комиссия <b>3.5 BYN</b> удерживается с клиента. Из них мы оплачиваем банковский эквайринг, оставляя себе чистую прибыль.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 10: ГЛОБАЛЬНЫЙ ПОТЕНЦИАЛ -->
+  <section class="slide" data-title="10. Глобальный потенциал" data-orb-x="0.75" data-orb-y="0.35" data-orb-s="240" data-orb-h="0.35">
+    <div class="slide-inner stagger">
+      <div>
+        <div class="eyebrow">Глобальный потенциал</div>
+        <h2>Архитектура для любой ниши услуг</h2>
+        <p class="lead" style="margin-top:12px">
+          Мы автоматизируем продажу времени везде: от барбершопов и салонов красоты до частных медицинских кабинетов, стоматологий и индивидуальных предпринимателей.
+        </p>
+      </div>
+
+      <div class="grid-4" style="margin-top:28px">
+        <div class="card">
+          <div style="font-size:28px; margin-bottom:10px">💇‍♀️</div>
+          <h3>Beauty & Барбершопы</h3>
+          <p style="font-size:13px; margin-top:6px">Парикмахерские, колористика, ногтевой сервис и SPA-салоны с поддержкой AI Камеры.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:28px; margin-bottom:10px">🩺</div>
+          <h3>Частная медицина</h3>
+          <p style="font-size:13px; margin-top:6px">Стоматологии, косметология и частные врачебные кабинеты без очередей на ресепшене.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:28px; margin-bottom:10px">🏋️</div>
+          <h3>Спорт и Велнес</h3>
+          <p style="font-size:13px; margin-top:6px">Персональные тренеры, студии йоги, массажные кабинеты и реабилитация.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:28px; margin-bottom:10px">💼</div>
+          <h3>Эксперты и ИП</h3>
+          <p style="font-size:13px; margin-top:6px">Консультанты, юристы, репетиторы и локальные сервисные мастера.</p>
+        </div>
+      </div>
+
+      <div class="card dark" style="margin-top:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:22px 32px">
+        <div style="display:flex; align-items:center; gap:14px">
+          <span style="width:12px; height:12px; border-radius:50%; background:var(--teal); display:inline-block; box-shadow:0 0 12px var(--teal)"></span>
+          <span style="font-size:18px; font-weight:400">Первые B2B клиенты уже готовы к интеграции платформы</span>
+        </div>
+        <span class="logo-pill" style="background:var(--teal); color:#fff">Traction Ready</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 11: ПРОГНОЗ И ВАЛИДАЦИЯ ЭКОНОМИКИ (ОДНА НИША) -->
+  <section class="slide" data-title="11. Прогноз экономики" data-orb-x="0.2" data-orb-y="0.6" data-orb-s="220" data-orb-h="0.5">
+    <div class="slide-inner stagger">
+      <div>
+        <div class="eyebrow">Прогноз (одна ниша — рынок РБ)</div>
+        <h2>Валидация экономики</h2>
+      </div>
+
+      <div class="grid-4" style="margin-top:24px">
+        <div class="card teal-tint">
+          <span class="logo-pill" style="background:#fff">Net Profit / мес</span>
+          <div class="big-stat teal" style="font-size:44px">$30,000+</div>
+          <h3>Чистая прибыль</h3>
+          <p style="font-size:13px; margin-top:6px; color:var(--teal-d)">Ежемесячная чистая прибыль платформы после вычета всех расходов.</p>
+        </div>
+
+        <div class="card">
+          <span class="logo-pill">Доля рынка РБ</span>
+          <div class="big-stat ink" style="font-size:44px">3,000</div>
+          <h3>Парикмахерских</h3>
+          <p style="font-size:13px; margin-top:6px">Активных салонов из 7,000 на рынке РБ. В среднем по 3 мастера в каждом.</p>
+        </div>
+
+        <div class="card">
+          <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">Конверсия в AI</span>
+          <div class="big-stat" style="font-size:44px">5 AI / 90</div>
+          <h3>Подписок на мастера</h3>
+          <p style="font-size:13px; margin-top:6px">Из 90 клиентов одного мастера всего 5 оформят премиум AI-подписку (29 BYN/мес).</p>
+        </div>
+
+        <div class="card dark">
+          <span class="logo-pill" style="background:var(--teal); color:#fff">Gross Revenue / мес</span>
+          <div class="big-stat" style="font-size:44px; color:#fff">$140,000</div>
+          <h3 style="color:#fff">Выручка в месяц</h3>
+          <p style="font-size:13px; margin-top:6px">Прогнозируемая ежемесячная выручка платформы только на одной вертикали.</p>
+        </div>
+      </div>
+
+      <!-- Интерактивный калькулятор тарифа B2B из index.html -->
+      <div class="card soft" style="margin-top:20px; padding:20px 28px; display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:24px; align-items:center">
+        <div>
+          <h3 style="font-size:17px">Калькулятор тарифа для одной организации (BYN/мес)</h3>
+          <p style="font-size:13px; margin-top:4px">База (админ): <b>45 BYN</b> + <b>9 BYN</b> за мастера + <b>1.5 BYN</b> за услугу</p>
+        </div>
+        <div>
+          <label style="font-size:12px; display:flex; justify-content:space-between"><span>Мастеров:</span><b id="u-m-val">3</b></label>
+          <input type="range" id="u-m" min="1" max="25" value="3" oninput="calcUnit()">
+          <label style="font-size:12px; display:flex; justify-content:space-between; margin-top:6px"><span>Услуг:</span><b id="u-s-val">12</b></label>
+          <input type="range" id="u-s" min="1" max="60" value="12" oninput="calcUnit()">
+        </div>
+        <div style="text-align:right">
+          <span style="font-size:12px; color:var(--mut)">Фиксированный чек B2B:</span>
+          <div style="font-size:32px; font-weight:300; color:var(--ink)" id="u-tot">90 BYN <small style="font-size:14px; color:var(--mut)">/мес</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 12: ИНВЕСТИЦИОННЫЙ ЗАПРОС И КОМАНДА -->
+  <section class="slide" data-title="12. Инвестиционный запрос и Команда" data-orb-x="0.72" data-orb-y="0.5" data-orb-s="260" data-orb-h="0.45">
+    <div class="slide-inner grid-2-asym stagger">
+      <div>
+        <div class="eyebrow">Инвестиционный запрос</div>
+        <h2>Ресурсы для захвата рынка</h2>
+
+        <div class="card dark" style="margin-top:20px">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px">
+            <div class="big-stat" style="color:#fff; margin:0">$120,000</div>
+            <span class="logo-pill" style="background:var(--teal); color:#fff; font-size:13px">Срок: 24 месяца</span>
+          </div>
+          <p style="margin-top:12px; font-size:14px">
+            Инвестиции направлены на обеспечение технической устойчивости, агрессивный маркетинг и захват лидирующей доли рынка в первый год работы.
+          </p>
+
+          <div class="grid-2" style="gap:12px; margin-top:18px">
+            <div style="padding:12px 14px; background:#191919; border-radius:14px; border:1px solid #2c2c2c">
+              <b style="color:var(--teal); font-size:14px">01 · Инфраструктура</b>
+              <div style="font-size:12px; color:#aaa; margin-top:2px">Сервера, GPU и внешние API</div>
+            </div>
+            <div style="padding:12px 14px; background:#191919; border-radius:14px; border:1px solid #2c2c2c">
+              <b style="color:var(--coral); font-size:14px">02 · Команда</b>
+              <div style="font-size:12px; color:#aaa; margin-top:2px">Зарплатный фонд разработки</div>
+            </div>
+            <div style="padding:12px 14px; background:#191919; border-radius:14px; border:1px solid #2c2c2c">
+              <b style="color:#fff; font-size:14px">03 · Маркетинг</b>
+              <div style="font-size:12px; color:#aaa; margin-top:2px">Трафик и привлечение B2B лидов</div>
+            </div>
+            <div style="padding:12px 14px; background:#191919; border-radius:14px; border:1px solid #2c2c2c">
+              <b style="color:#d8d2cb; font-size:14px">04 · Workspace</b>
+              <div style="font-size:12px; color:#aaa; margin-top:2px">Аренда офиса и операции</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Основатели и Финальный слоган -->
+      <div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px">
+            <h3>Основатели проекта</h3>
+            <span class="logo-pill">We born to help</span>
+          </div>
+          <div class="grid-2" style="gap:16px">
+            <div>
+              <div class="photo-slot portrait" data-slot="founder-1" style="border-radius:16px; border:1px dashed var(--line)">
+                <img src="" alt="Владислав Буель">
+                <div class="slot-placeholder">
+                  <div class="slot-icon">👤</div>
+                  <div class="slot-title" style="font-size:12px">Фото основателя</div>
+                </div>
+                <span class="slot-change-badge">Заменить</span>
+              </div>
+              <h3 style="font-size:17px; margin-top:10px">Владислав Буель</h3>
+              <p style="font-size:13px">Co-Founder</p>
+            </div>
+            <div>
+              <div class="photo-slot portrait" data-slot="founder-2" style="border-radius:16px; border:1px dashed var(--line)">
+                <img src="" alt="Михаил Паньков">
+                <div class="slot-placeholder">
+                  <div class="slot-icon">👤</div>
+                  <div class="slot-title" style="font-size:12px">Фото основателя</div>
+                </div>
+                <span class="slot-change-badge">Заменить</span>
+              </div>
+              <h3 style="font-size:17px; margin-top:10px">Михаил Паньков</h3>
+              <p style="font-size:13px">Co-Founder</p>
+            </div>
+          </div>
+
+          <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center">
+            <div>
+              <div class="logo" style="font-size:26px">On<b>Time</b></div>
+              <span style="font-size:13px; color:var(--mut)">We born to help · 2026</span>
+            </div>
+            <button class="btn k" onclick="goToSlide(0)">В начало ↺</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Модальное окно обзора всех слайдов -->
+<div class="overview-modal" id="overview-modal">
+  <div style="max-width:1200px; margin:auto; display:flex; justify-content:space-between; align-items:center">
+    <h2>Быстрый переход по слайдам</h2>
+    <button class="btn k" onclick="toggleOverview()">Закрыть (Esc)</button>
+  </div>
+  <div class="overview-grid" id="overview-grid"></div>
 </div>
 
-<nav><div class="w">
-  <div class="logo">On<b>Time</b></div>
-  <a class="l" href="#flow" data-i="n1"></a><a class="l" href="#feat" data-i="n2"></a><a class="l" href="#price" data-i="n3"></a><a class="l" href="#team" data-i="n4"></a>
-  <div class="sp"></div>
-  <a class="btn k" href="#signup" data-i="cta"></a>
-  <details class="mobile-menu"><summary aria-label="Меню"><span class="menu-icon" aria-hidden="true"></span></summary><div class="menu-panel"><a href="#flow" data-i="n1"></a><a href="#feat" data-i="n2"></a><a href="#price" data-i="n3"></a><a href="#team" data-i="n4"></a></div></details>
-</div></nav>
-
-<header class="hero"><div class="w">
-  <div class="t">
-    <span class="hero-kicker">Запись клиентов онлайн</span>
-    <h1 data-i="h1"></h1>
-    <p data-i="sub"></p>
-    <div class="hero-actions"><a class="btn k" href="#flow" data-i="try"></a> <a class="btn" href="#signup" data-i="cta"></a></div>
+<!-- Нижняя панель управления слайдами -->
+<footer class="bottombar">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div>
+    <span id="slide-counter" style="font-weight:600; color:var(--ink)">01 / 12</span>
+    <span style="margin-left:12px" id="slide-title-lbl">1. О проекте OnTime</span>
   </div>
-  <div class="slot" data-k=".9" data-h=".5"></div>
-</div></header>
-
-<section id="flow" class="band"><div class="pin">
-  <div class="w" style="width:100%"><div class="hd"><h2 data-i="fh"></h2><p data-i="fp"></p></div></div>
-  <div class="flow-steps" aria-label="Шаги записи"><button type="button" data-panel="0">1. Услуга</button><button type="button" data-panel="1">2. Время</button><button type="button" data-panel="2">3. Заявка</button><button type="button" data-panel="3">4. Статус</button></div>
-  <div class="track" id="track"></div><div class="flow-actions"><button class="btn" type="button" id="flow-back">Назад</button><button class="btn k" type="button" id="flow-next">Продолжить →</button></div><div class="bar"><i id="bi"></i></div>
-</div></section>
-
-<section id="feat"><div class="w">
-  <div class="hd"><h2 data-i="eh"></h2></div>
-  <div class="fr"><div class="slot" data-k=".5" data-h=".3"></div><div><h3 data-i="e1"></h3><p data-i="e1d"></p></div></div>
-  <div class="fr flip"><div class="slot" data-k="1.3" data-h=".75"></div><div><h3 data-i="e2"></h3><p data-i="e2d"></p></div></div>
-  <div class="fr"><div class="slot" data-k=".8" data-h=".5"></div><div><h3 data-i="e3"></h3><p data-i="e3d"></p></div></div>
-  <div class="fr dk flip"><div class="slot" data-k="1.7" data-h=".9"></div><div><h3 data-i="ah"></h3><p data-i="ap"></p></div></div>
-  <div class="fr"><div class="slot" data-k=".35" data-h=".15"></div><div><h3 data-i="anh"></h3>
-    <div class="an"><div><b>24</b><small data-i="a1"></small></div><div><b>5 520 BYN</b><small data-i="a2"></small></div><div><b>+7</b><small data-i="a3"></small></div><div><b>82%</b><small data-i="a4"></small></div></div></div></div>
-</div></section>
-
-<section id="price" class="band"><div class="w">
-  <div class="hd"><h2 data-i="ph2"></h2><p data-i="pp"></p></div>
-  <div class="pr">
-    <div class="pc"><h3 data-i="po"></h3>
-      <ul><li><span data-i="pb"></span><b>45 BYN</b></li><li><span data-i="pm"></span><b>9 BYN</b></li><li><span data-i="ps"></span><b>1.5 BYN</b></li></ul>
-      <div class="slot" data-k="1" data-h=".6" style="--s:110px;margin:18px auto 0"></div><div class="calc"><label><span><span data-i="cm"></span>:</span> <b id="vm">5</b></label><input id="rm" type="range" min="1" max="30" value="5"><label><span><span data-i="cs"></span>:</span> <b id="vs">20</b></label><input id="rs" type="range" min="1" max="100" value="20"><span data-i="ct"></span> <strong id="tot"></strong><span data-i="mo"></span></div>
-    </div>
-    <div class="pc"><h3 data-i="pcl"></h3><p style="margin-top:12px" data-i="pcd"></p>
-      <ul><li><span data-i="pc1"></span><b data-i="pc1v"></b></li></ul></div>
-    <div class="pc"><h3 data-i="pai"></h3><p style="margin-top:12px" data-i="pad"></p>
-      <ul><li><span data-i="pa1"></span><b>29.97 BYN</b></li></ul></div>
+  <div style="display:flex; align-items:center; gap:8px">
+    <span style="font-size:12px; margin-right:8px">Навигация: клавиши ← → или Пробел</span>
+    <button class="btn" type="button" onclick="prevSlide()">← Назад</button>
+    <button class="btn k" type="button" onclick="nextSlide()">Далее →</button>
   </div>
-</div></section>
-
-<section id="team"><div class="w">
-  <div class="hd"><h2 data-i="th"></h2></div>
-  <div class="tm">
-    <div><div class="ph" data-i="ph3"></div><h3 data-i="t1"></h3><p data-i="tr"></p></div>
-    <div><div class="ph" data-i="ph3"></div><h3 data-i="t2"></h3><p data-i="tr"></p></div>
-    <div class="slot" data-k=".7" data-h=".4" style="--s:200px"></div>
-  </div>
-</div></section>
-
-<section id="signup" class="band"><div class="w">
-  <div class="hd"><h2 data-i="sh"></h2><p data-i="sp"></p><div class="slot" data-k=".6" data-h=".5" style="--s:140px;margin-top:24px"></div></div>
-  <form class="su" id="su">
-    <div class="two"><div><label class="lbl" data-i="fs"></label><input required autocomplete="family-name"></div><div><label class="lbl" data-i="fn"></label><input required autocomplete="given-name"></div></div>
-    <label class="lbl">Email</label><input type="email" required autocomplete="email">
-    <label class="lbl" data-i="fpw"></label><input type="password" required minlength="6" autocomplete="new-password">
-    <button class="btn k" style="width:100%" data-i="fb"></button>
-    <p id="suok" style="margin-top:14px;color:var(--teal-d)"></p>
-  </form>
-</div></section>
-
-<footer><div class="w"><span>© 2026 OnTime</span></div></footer>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-const RAW=`n1|Как это работает
-n2|Возможности
-n3|Цены
-n4|Команда
-cta|Начать
-try|Попробовать запись
-h1|Запись клиентов — без звонков и хаоса
-sub|OnTime автоматизирует запись на услуги: клиент выбирает мастера и время за минуту, а вы подтверждаете заявку в один клик.
-fh|От выбора услуги до подтверждения
-fp|Пройдите путь клиента сами — это интерактивный пример. Запись всегда подтверждает организация.
-s1|Услуга
-s1d|Что хочет клиент
-s2|Мастер и время
-s2d|Свободные окна в реальном времени
-s3|Заявка
-s3d|Короткая форма без лишнего
-s4|Подтверждение
-s4d|Салон подтверждает — клиент получает уведомление
-q1|Выберите услугу
-q2|Выберите мастера и время
-q3|Оставьте контакты
-q4|Заявка отправлена
-sv1|Стрижка
-sv2|Окрашивание
-sv3|Укладка
-m1|Анна
-m2|Игорь
-m3|Мария
-min|мин
-ph|Фото
-mst|Мастер
-day|Дата
-tm|Время
-nx|Продолжить
-nm|Ваше имя
-em|Email
-send|Отправить заявку
-wait|Ожидает подтверждения
-okb|Подтверждено
-sal|Салон: новая заявка
-conf|Подтвердить
-again|Пройти заново
-notif|Клиент уведомлён:
-eh|Всё, чтобы запись работала сама
-e1|Google Calendar, Telegram, Email
-e1d|Заявки и напоминания приходят туда, где вы уже работаете.
-e2|Фиксированная оплата
-e2d|Платите за администратора, мастеров и услуги — без скрытых процентов с бизнеса.
-e3|Понятный интерфейс
-e3d|Минимум кнопок: клиент записывается за несколько касаний.
-ah|AI Камера
-ap|Клиент создаёт AI-образ ещё до визита и приходит с готовым желаемым результатом. Подключается по желанию.
-a1|записей сегодня
-a2|выручка
-a3|новых клиентов
-a4|загрузка персонала
-pend|Статус появится после отправки заявки
-anh|Аналитика бизнеса
-ph2|Цена складывается из того, что вам нужно
-pp|Для организации — фиксированная ежемесячная плата.
-po|Организация
-pb|База (администратор)
-pm|Каждый мастер
-ps|Каждая услуга
-cm|Мастеров
-cs|Услуг
-ct|Итого:
-mo|/мес
-pcl|Клиент
-pcd|Клиент платит комиссию за каждую услугу.
-pc1|Каждая услуга
-pc1v|комиссия
-pai|Дополнение
-pad|Необязательная подписка.
-pa1|AI Камера / мес
-th|Основатели
-ph3|Фото
-t1|Владислав Буель
-t2|Михаил Паньков
-tr|Co-Founder
-sh|Начните принимать записи
-sp|Создайте аккаунт организации.
-fs|Фамилия
-fn|Имя
-fpw|Пароль
-fb|Создать аккаунт
-ok|Спасибо! Это демо-форма, данные никуда не отправляются.`;
-const D=Object.fromEntries(RAW.split('\n').map(l=>l.split('|')));
-const t=k=>D[k];
-const money=value=>value.toLocaleString('ru-RU',{maximumFractionDigits:2})+' BYN';
-const S={sv:null,m:null,d:0,tm:null,nm:'',em:'',sent:false,conf:false};
-const days=()=>[...Array(5)].map((_,i)=>{const d=new Date(2026,9,8+i);return d.toLocaleDateString('ru-RU',{weekday:'short',day:'numeric'})});
-const times=['10:00','11:30','14:00','16:30'];
-const FL=document.getElementById('flow'),TK=document.getElementById('track'),HS=[[.35,.9],[.6,1.2],[.8,1],[.2,.7]];
-let maxX=0,mobilePanel=0;
-const mobile=matchMedia('(max-width:860px)');
-function paintMobile(){
-  [...TK.children].forEach((n,i)=>n.classList.toggle('active',i===mobilePanel));
-  document.querySelectorAll('[data-panel]').forEach(b=>{
-    const i=+b.dataset.panel;
-    b.disabled=i===1?!S.sv:i===2?!(S.sv&&S.m&&S.tm):i===3?!S.sent:false;
-    if(i===mobilePanel)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');
-  });
-  const back=document.getElementById('flow-back'),next=document.getElementById('flow-next');
-  back.hidden=mobilePanel===0;next.hidden=mobilePanel>=2;
-  next.disabled=mobilePanel===0?!S.sv:!(S.m&&S.tm);
-}
-document.querySelector('.flow-steps').addEventListener('click',e=>{const b=e.target.closest('[data-panel]');if(b&&!b.disabled)goPanel(+b.dataset.panel)});
-document.getElementById('flow-back').onclick=()=>goPanel(Math.max(0,mobilePanel-1));
-document.getElementById('flow-next').onclick=()=>goPanel(Math.min(3,mobilePanel+1));
-document.querySelector('.mobile-menu').addEventListener('click',e=>{if(e.target.closest('a'))e.currentTarget.open=false});
-function layout(){paintMobile();if(mobile.matches){maxX=0;FL.style.height='auto';TK.style.transform='none';return}const l=TK.lastElementChild;if(!l)return;const pl=parseFloat(getComputedStyle(TK).paddingLeft);maxX=Math.max(0,l.offsetLeft+l.offsetWidth+pl-innerWidth);FL.style.height=(maxX+innerHeight-60)+'px'}
-const sum=()=>`<div class="sum"><span><b>${S.sv?t('sv'+S.sv):'—'}</b> · ${t('mst')}: ${S.m?t('m'+S.m):'—'}</span><span>${days()[S.d]} · ${S.tm||'—'}</span></div>`;
-function demo(){
-  const c=[];
-  c[0]=`<div class="opts">${[1,2,3].map(i=>`<button class="opt ${S.sv===i?'sel':''}" data-sv="${i}"><span class="ph">${t('ph')}</span><span>${t('sv'+i)}<small>${[40,90,30][i-1]} ${t('min')} · ${money([75,180,60][i-1])}</small></span></button>`).join('')}</div>`;
-  c[1]=`<div class="lbl">${t('mst')}</div><div class="chips">${[1,2,3].map(i=>`<button class="chip ${S.m===i?'sel':''}" data-m="${i}">${t('m'+i)}</button>`).join('')}</div><div class="lbl">${t('day')}</div><div class="chips">${days().map((d,i)=>`<button class="chip ${S.d===i?'sel':''}" data-d="${i}">${d}</button>`).join('')}</div><div class="lbl">${t('tm')}</div><div class="chips" style="margin-bottom:0">${times.map(x=>`<button class="chip ${S.tm===x?'sel':''}" data-t="${x}">${x}</button>`).join('')}</div>`;
-  c[2]=sum()+`<label class="lbl">${t('nm')}</label><input id="nm" value="${S.nm}" autocomplete="given-name"><label class="lbl">${t('em')}</label><input id="em" type="email" value="${S.em}" autocomplete="email"><button class="btn k" id="n2" ${S.sv&&S.m&&S.tm?'':'disabled'}>${t('send')}</button>`;
-  c[3]=S.sent?sum()+`<span class="badge ${S.conf?'ok':''}">● ${S.conf?t('okb'):t('wait')}</span>`+(S.conf?`<div class="via"><span>Telegram</span><span>Email</span><span>Google Calendar</span></div><p class="lbl">${t('notif')}</p>`:`<div class="salon"><span>${t('sal')}: ${t('sv'+S.sv)}, ${S.tm}</span><button class="btn k" id="cf">${t('conf')}</button></div>`)+`<p style="margin-top:18px"><button class="btn" id="rs0">${t('again')}</button></p>`:`<p>${t('pend')}</p>`;
-  TK.innerHTML=[0,1,2,3].map(i=>`<div class="pn"><div class="ph0"><div class="slot" data-h="${HS[i][0]}" data-k="${HS[i][1]}"></div><div><h3>${t('q'+(i+1))}</h3><p>${t('s'+(i+1)+'d')}</p></div></div><div class="card">${c[i]}</div></div>`).join('');
-  layout();
-}
-function goPanel(i){mobilePanel=i;if(mobile.matches){paintMobile();FL.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'start'});return}scrollTo({top:FL.offsetTop-60+maxX*i/3,behavior:'smooth'})}
-TK.addEventListener('input',e=>{if(e.target.id==='nm')S.nm=e.target.value;if(e.target.id==='em')S.em=e.target.value});
-TK.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;const d=b.dataset;let go=-1;
-  if(d.sv){S.sv=+d.sv;go=1}else if(d.m)S.m=+d.m;else if(d.d)S.d=+d.d;else if(d.t)S.tm=d.t;
-  else if(b.id==='n2'){S.sent=true;go=3}else if(b.id==='cf')S.conf=true;else if(b.id==='rs0'){Object.assign(S,{sv:null,m:null,d:0,tm:null,nm:'',em:'',sent:false,conf:false});go=0}
-  demo();if(go>=0)goPanel(go)});
-addEventListener('resize',layout);
-const pr=()=>{const m=+rm.value,s=+rs.value;vm.textContent=m;vs.textContent=s;tot.textContent=money(45+9*m+1.5*s)};
-rm.oninput=rs.oninput=pr;
-function apply(){document.querySelectorAll('[data-i]').forEach(n=>n.textContent=t(n.dataset.i));demo();pr()}
-document.getElementById('su').onsubmit=e=>{e.preventDefault();suok.textContent=t('ok')};
-apply();
-/* intro */
-const intro=document.getElementById('intro'),rm_=matchMedia('(prefers-reduced-motion:reduce)').matches;
-setTimeout(()=>intro.classList.add('go'),rm_?0:900);
-setTimeout(()=>{document.body.classList.remove('lock');document.body.classList.add('ready');intro.remove()},rm_?100:2700);
-setTimeout(()=>document.body.classList.add('ready'),rm_?0:1700);
-/* Three.js shader orb that follows .slot anchors */
-const bi=document.getElementById('bi');
-let orbStep=()=>{};
-try{
-const c=document.getElementById('orb'),r=new THREE.WebGLRenderer({canvas:c,alpha:true,antialias:true});
-const sc=new THREE.Scene(),cam=new THREE.OrthographicCamera(-1,1,1,-1,-3000,3000);cam.position.z=10;
-const u={t:{value:0},k:{value:.9},h:{value:.5}};
-const m=new THREE.ShaderMaterial({uniforms:u,
-vertexShader:`uniform float t;uniform float k;varying vec3 vN;varying vec3 vP;void main(){vec3 p=position;float d=sin(p.x*2.+t)*sin(p.y*2.3+t*1.1)*sin(p.z*2.1+t*.9);p+=normal*d*.2*k;vP=p;vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}`,
-fragmentShader:`uniform float t;uniform float h;varying vec3 vN;varying vec3 vP;void main(){
-float n=(sin(vP.x*2.2+t*.7)+sin(vP.y*2.6-t*.5)+sin(vP.z*2.3+t*.6))/6.+.5;
-vec3 teal=vec3(.23,.61,.63),coral=vec3(.88,.52,.42),dark=vec3(.08,.2,.22),cream=vec3(.99,.97,.95);
-vec3 col=mix(teal,coral,smoothstep(.3,.7,n+(h-.5)*.9));
-col=mix(col,dark,smoothstep(.62,.95,1.-n)*.35);
-float l=dot(vN,normalize(vec3(-.5,.7,.8)))*.5+.5;col*=.78+.34*l;
-col=mix(col,cream,pow(1.-abs(vN.z),3.)*.5);
-gl_FragColor=vec4(col,1.);}`});
-const o=new THREE.Mesh(new THREE.IcosahedronGeometry(1,48),m);sc.add(o);
-let W=1,H=1,mx=0,my=0;const cur={x:innerWidth*.7,y:innerHeight*.5,s:200};
-addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
-function rs_(){W=innerWidth;H=innerHeight;r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(W,H,false);cam.left=-W/2;cam.right=W/2;cam.top=H/2;cam.bottom=-H/2;cam.updateProjectionMatrix()}
-rs_();addEventListener('resize',rs_);
-const clk=new THREE.Clock();
-orbStep=()=>{
-  if(mobile.matches)return;
-  let best=null,bd=1e9,bk=.9,bh=.5;
-  document.querySelectorAll('.slot').forEach(e=>{const q=e.getBoundingClientRect();if(!q.width)return;const cx=q.left+q.width/2,cy=q.top+q.height/2,d=Math.abs(cy-H/2)+Math.abs(cx-W/2)*.5;if(d<bd){bd=d;best={cx,cy,w:q.width};bk=+e.dataset.k||.9;bh=+e.dataset.h||.5}});
-  if(best){const R=best.w/2.2,tx=best.cx,ty=Math.min(Math.max(best.cy,60+R*.6),H-R*.6),f=rm_?1:.1,dx=(tx-cur.x)*f,dy=(ty-cur.y)*f;
-    cur.x+=dx;cur.y+=dy;cur.s+=(R-cur.s)*f;
-    const sx=Math.min(Math.abs(dx)*.012,.3),sy=Math.min(Math.abs(dy)*.012,.3);
-    o.scale.set(cur.s*(1+sx-sy*.5),cur.s*(1+sy-sx*.5),cur.s);
-    u.k.value+=(bk-u.k.value)*.06;u.h.value+=(bh-u.h.value)*.06}
-  o.position.set(cur.x-W/2,H/2-cur.y,0);
-  if(!rm_)u.t.value=clk.getElapsedTime()*.8;
-  o.rotation.y+=(mx*1.2-o.rotation.y)*.04;o.rotation.x+=(my*.8-o.rotation.x)*.04;
-  r.render(sc,cam)};
-}catch(e){console.warn(e)}
-/* flow scroll + loop */
-function loop(){
-  if(mobile.matches){requestAnimationFrame(loop);return}
-  const q=FL.getBoundingClientRect(),p=maxX?Math.min(1,Math.max(0,(60-q.top)/maxX)):0;
-  TK.style.transform=`translateX(${-p*maxX}px)`;bi.style.width=p*100+'%';
-  const vw=innerWidth;[...TK.children].forEach(n=>{const b=n.getBoundingClientRect(),d=Math.abs(b.left+b.width/2-vw/2)/vw;n.style.opacity=1-Math.min(.55,d*.8)});
-  orbStep();requestAnimationFrame(loop)}
-loop();
-/* section reveals */
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
-document.querySelectorAll('#feat .hd,.fr:not(.dk),.fr.dk,#price .hd,.pc,#team .hd,.tm>div,#signup .hd,.su').forEach(e=>{e.classList.add('rv');io.observe(e)});
-</script>
+/* 1. Навигация по слайдам */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const dotsContainer = document.getElementById('nav-dots');
+const overviewGrid = document.getElementById('overview-grid');
+const progressFill = document.getElementById('progress-fill');
+const slideCounter = document.getElementById('slide-counter');
+const slideTitleLbl = document.getElementById('slide-title-lbl');
+let currentSlide = 0;
 
+// target parameters for Three.js orb
+const orbTarget = { x: 0.72, y: 0.5, s: 260, h: 0.45 };
+
+slides.forEach((sl, idx) => {
+  const title = sl.dataset.title || `Слайд ${idx + 1}`;
+  const dot = document.createElement('button');
+  dot.className = 'dot' + (idx === 0 ? ' active' : '');
+  dot.dataset.title = title;
+  dot.onclick = () => goToSlide(idx);
+  dotsContainer.appendChild(dot);
+
+  const ov = document.createElement('div');
+  ov.className = 'ov-card' + (idx === 0 ? ' active' : '');
+  ov.innerHTML = `<div class="ov-num">СЛАЙД ${String(idx + 1).padStart(2, '0')}</div><div class="ov-title">${title.replace(/^\d+\.\s*/, '')}</div>`;
+  ov.onclick = () => { goToSlide(idx); toggleOverview(false); };
+  overviewGrid.appendChild(ov);
+});
+
+function goToSlide(index) {
+  if (index < 0 || index >= slides.length) return;
+  currentSlide = index;
+  slides.forEach((sl, i) => {
+    sl.classList.toggle('active', i === currentSlide);
+    sl.classList.toggle('prev', i < currentSlide);
+  });
+  Array.from(dotsContainer.children).forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  Array.from(overviewGrid.children).forEach((c, i) => c.classList.toggle('active', i === currentSlide));
+
+  const active = slides[currentSlide];
+  orbTarget.x = parseFloat(active.dataset.orbX || 0.7);
+  orbTarget.y = parseFloat(active.dataset.orbY || 0.5);
+  orbTarget.s = parseFloat(active.dataset.orbS || 220);
+  orbTarget.h = parseFloat(active.dataset.orbH || 0.5);
+
+  const pct = ((currentSlide + 1) / slides.length) * 100;
+  progressFill.style.width = pct + '%';
+  slideCounter.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+  slideTitleLbl.textContent = active.dataset.title || '';
+
+  // Запуск анимации цифр при открытии слайда
+  active.querySelectorAll('.count').forEach(el => animateCount(el, +el.dataset.target));
+}
+
+function nextSlide() { if (currentSlide < slides.length - 1) goToSlide(currentSlide + 1); }
+function prevSlide() { if (currentSlide > 0) goToSlide(currentSlide - 1); }
+
+window.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  else if (e.key === 'g' || e.key === 'G' || e.key === 'п' || e.key === 'П') { toggleOverview(); }
+  else if (e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') { toggleFullScreen(); }
+  else if (e.key === 'Escape') { toggleOverview(false); }
+});
+
+// Переключение колесом мыши с защитой от слишком частых срабатываний
+let wheelLock = false;
+window.addEventListener('wheel', e => {
+  if (document.getElementById('overview-modal').classList.contains('open')) return;
+  if (wheelLock || Math.abs(e.deltaY) < 40) return;
+  wheelLock = true;
+  if (e.deltaY > 0) nextSlide(); else prevSlide();
+  setTimeout(() => { wheelLock = false; }, 650);
+}, { passive: true });
+
+function toggleOverview(force) {
+  const modal = document.getElementById('overview-modal');
+  const open = typeof force === 'boolean' ? force : !modal.classList.contains('open');
+  modal.classList.toggle('open', open);
+}
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+  else document.exitFullscreen();
+}
+
+/* 2. Загрузка и сохранение скриншотов веб-сайта (Drag & Drop + Клик + localStorage) */
+const fileInput = document.getElementById('global-file-input');
+let activePhotoSlot = null;
+
+function applyImageToSlot(slot, dataUrl) {
+  const img = slot.querySelector('img');
+  if (!img) return;
+  img.src = dataUrl;
+  slot.classList.add('has-image');
+  const key = 'ontime_slide_img_' + slot.dataset.slot;
+  try { localStorage.setItem(key, dataUrl); } catch (e) { console.warn('Storage quota exceeded'); }
+}
+
+document.querySelectorAll('.photo-slot').forEach(slot => {
+  const key = 'ontime_slide_img_' + slot.dataset.slot;
+  const saved = localStorage.getItem(key);
+  if (saved) applyImageToSlot(slot, saved);
+
+  slot.addEventListener('click', () => {
+    activePhotoSlot = slot;
+    fileInput.value = '';
+    fileInput.click();
+  });
+
+  slot.addEventListener('dragover', e => { e.preventDefault(); slot.classList.add('dragover'); });
+  slot.addEventListener('dragleave', () => slot.classList.remove('dragover'));
+  slot.addEventListener('drop', e => {
+    e.preventDefault();
+    slot.classList.remove('dragover');
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) readImageFile(file, slot);
+  });
+});
+
+fileInput.addEventListener('change', e => {
+  const file = e.target.files && e.target.files[0];
+  if (file && activePhotoSlot) readImageFile(file, activePhotoSlot);
+});
+
+function readImageFile(file, slot) {
+  const reader = new FileReader();
+  reader.onload = ev => applyImageToSlot(slot, ev.target.result);
+  reader.readAsDataURL(file);
+}
+
+function clearSavedPhotos() {
+  document.querySelectorAll('.photo-slot').forEach(slot => {
+    localStorage.removeItem('ontime_slide_img_' + slot.dataset.slot);
+    slot.classList.remove('has-image');
+    const img = slot.querySelector('img');
+    if (img) img.src = '';
+  });
+}
+
+/* 3. Интерактивные виджеты на слайдах */
+function animateCount(el, target) {
+  let start = 0;
+  const duration = 900;
+  const t0 = performance.now();
+  function step(now) {
+    const p = Math.min(1, (now - t0) / duration);
+    el.textContent = Math.round(start + (target - start) * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function calcLoss() {
+  const rev = +document.getElementById('loss-rev').value;
+  document.getElementById('loss-rev-val').textContent = rev.toLocaleString('ru-RU') + ' BYN';
+  const loss = Math.round(rev * 0.45);
+  document.getElementById('loss-total').textContent = 'до ' + loss.toLocaleString('ru-RU') + ' BYN';
+}
+
+function switchShowcase(idx, btn) {
+  document.querySelectorAll('.showcase-pane').forEach((p, i) => p.style.display = i === idx ? 'grid' : 'none');
+  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function moveAiSlider(val) {
+  document.getElementById('ai-after-layer').style.clipPath = `inset(0 0 0 ${val}%)`;
+  document.getElementById('ai-divider').style.left = val + '%';
+}
+
+function setPrompt(btn, text) {
+  btn.parentElement.querySelectorAll('.p-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('ai-preview-caption').textContent = `"${text}"`;
+}
+
+function calcDeadline(hours) {
+  document.getElementById('dl-hours-lbl').textContent = hours + ' ч.';
+  const limit = (hours * 0.9).toFixed(1);
+  const buffer = (hours * 0.1).toFixed(1);
+  document.getElementById('dl-res').textContent = limit + ' ч.';
+  document.getElementById('dl-note').textContent = `Буфер безопасности для клиента: ${buffer} ч.`;
+}
+
+function updateFintech() {
+  const price = Math.max(0, +document.getElementById('fin-price').value || 0);
+  const total = price + 3.5;
+  document.getElementById('fin-total').textContent = total.toLocaleString('ru-RU') + ' BYN';
+  document.getElementById('fin-biz').textContent = price.toLocaleString('ru-RU') + ' BYN';
+}
+
+function pulseFintech() {
+  const fl = document.getElementById('fintech-flow');
+  fl.classList.add('pulsing');
+  setTimeout(() => fl.classList.remove('pulsing'), 600);
+}
+
+function calcUnit() {
+  const m = +document.getElementById('u-m').value;
+  const s = +document.getElementById('u-s').value;
+  document.getElementById('u-m-val').textContent = m;
+  document.getElementById('u-s-val').textContent = s;
+  const total = 45 + 9 * m + 1.5 * s;
+  document.getElementById('u-tot').innerHTML = `${total.toLocaleString('ru-RU')} BYN <small style="font-size:14px; color:var(--mut)">/мес</small>`;
+}
+
+/* 4. Фирменная 3D-сфера OnTime (Three.js шейдер из index.html) */
+try {
+  const canvas = document.getElementById('orb-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -3000, 3000);
+  camera.position.z = 10;
+
+  const uniforms = {
+    t: { value: 0 },
+    k: { value: 0.9 },
+    h: { value: 0.45 }
+  };
+
+  const material = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader: `
+      uniform float t;
+      uniform float k;
+      varying vec3 vN;
+      varying vec3 vP;
+      void main() {
+        vec3 p = position;
+        float d = sin(p.x*2.+t)*sin(p.y*2.3+t*1.1)*sin(p.z*2.1+t*.9);
+        p += normal * d * .2 * k;
+        vP = p;
+        vN = normalize(normalMatrix * normal);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.);
+      }
+    `,
+    fragmentShader: `
+      uniform float t;
+      uniform float h;
+      varying vec3 vN;
+      varying vec3 vP;
+      void main() {
+        float n = (sin(vP.x*2.2+t*.7)+sin(vP.y*2.6-t*.5)+sin(vP.z*2.3+t*.6))/6.+.5;
+        vec3 teal = vec3(.23,.61,.63), coral = vec3(.88,.52,.42), dark = vec3(.08,.2,.22), cream = vec3(.99,.97,.95);
+        vec3 col = mix(teal, coral, smoothstep(.3,.7,n+(h-.5)*.9));
+        col = mix(col, dark, smoothstep(.62,.95,1.-n)*.35);
+        float l = dot(vN, normalize(vec3(-.5,.7,.8)))*.5+.5;
+        col *= .78 + .34 * l;
+        col = mix(col, cream, pow(1.-abs(vN.z),3.)*.5);
+        gl_FragColor = vec4(col, 1.);
+      }
+    `
+  });
+
+  const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 48), material);
+  scene.add(mesh);
+
+  let W = window.innerWidth, H = window.innerHeight;
+  let mx = 0, my = 0;
+  const cur = { x: W * 0.72, y: H * 0.5, s: 240 };
+
+  window.addEventListener('pointermove', e => {
+    mx = e.clientX / W - 0.5;
+    my = e.clientY / H - 0.5;
+  });
+
+  function onResize() {
+    W = window.innerWidth; H = window.innerHeight;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(W, H, false);
+    camera.left = -W / 2; camera.right = W / 2;
+    camera.top = H / 2; camera.bottom = -H / 2;
+    camera.updateProjectionMatrix();
+  }
+  onResize();
+  window.addEventListener('resize', onResize);
+
+  const clock = new THREE.Clock();
+  function animateOrb() {
+    const tx = orbTarget.x * W;
+    const ty = orbTarget.y * H;
+    cur.x += (tx - cur.x) * 0.06;
+    cur.y += (ty - cur.y) * 0.06;
+    cur.s += (orbTarget.s - cur.s) * 0.06;
+    uniforms.h.value += (orbTarget.h - uniforms.h.value) * 0.05;
+    uniforms.t.value = clock.getElapsedTime() * 0.75;
+
+    mesh.scale.set(cur.s, cur.s, cur.s);
+    mesh.position.set(cur.x - W / 2, H / 2 - cur.y, 0);
+    mesh.rotation.y += (mx * 1.1 - mesh.rotation.y) * 0.04;
+    mesh.rotation.x += (my * 0.8 - mesh.rotation.x) * 0.04;
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(animateOrb);
+  }
+  animateOrb();
+} catch (err) {
+  console.warn('WebGL fallback:', err);
+}
+</script>
 </body>
 </html>
