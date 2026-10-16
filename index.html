@@ -1211,9 +1211,9 @@ input[type="range"] {
         <div class="card coral-tint">
           <span class="logo-pill" style="background:#fff; color:#a4482c">IBAN Платформы</span>
           <h3 style="margin-top:12px; font-size:22px">Доход Платформы</h3>
-          <div class="big-stat" style="font-size:42px; margin:12px 0">3.5 BYN</div>
+          <div class="big-stat" style="font-size:42px; margin:12px 0" id="fin-fee">3.5 BYN</div>
           <p style="font-size:14px; color:#6e4335">
-            Фиксированная комиссия <b>3.5 BYN</b> удерживается с клиента. Из них мы оплачиваем банковский эквайринг, оставляя себе чистую прибыль.
+            Комиссия клиента: <b>max(0.99 BYN; 3.5%)</b>. Из неё мы оплачиваем банковский эквайринг, оставляя себе чистую прибыль.
           </p>
         </div>
       </div>
@@ -1614,9 +1614,12 @@ function calcDeadline(hours) {
 
 function updateFintech() {
   const price = Math.max(0, +document.getElementById('fin-price').value || 0);
-  const total = price + 3.5;
-  document.getElementById('fin-total').textContent = total.toLocaleString('ru-RU') + ' BYN';
-  document.getElementById('fin-biz').textContent = price.toLocaleString('ru-RU') + ' BYN';
+  const fee = Math.max(0.99, price * 0.035);
+  const total = price + fee;
+  const fmt = (n) => n.toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+  document.getElementById('fin-total').textContent = fmt(total) + ' BYN';
+  document.getElementById('fin-biz').textContent = fmt(price) + ' BYN';
+  document.getElementById('fin-fee').textContent = fmt(fee) + ' BYN';
 }
 
 function pulseFintech() {
