@@ -435,89 +435,6 @@ p { color: var(--mut); }
   box-shadow: 0 10px 28px rgba(58,155,160,.12);
 }
 
-/* AI Camera Before/After Slider */
-.ai-compare {
-  position: relative;
-  border-radius: 22px;
-  overflow: hidden;
-  aspect-ratio: 16 / 10;
-  background: #181a1b;
-  border: 1px solid #333;
-  user-select: none;
-}
-.ai-layer {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-   justify-content: space-between;
-  padding: 20px;
-}
-.ai-before {
-  background: radial-gradient(circle at 35% 30%, #484a4d, #1f2022 75%);
-  color: #fff;
-}
-.ai-after {
-  background: radial-gradient(circle at 65% 30%, var(--teal), #163e42 50%, var(--coral) 100%);
-  color: #fff;
-  clip-path: inset(0 0 0 50%);
-}
-.ai-divider {
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 50%;
-  width: 2px;
-  background: #fff;
-  z-index: 10;
-  pointer-events: none;
-}
-.ai-handle {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: #fff;
-  color: var(--ink);
-  display: grid;
-  place-items: center;
-  font-size: 14px;
-  font-weight: 700;
-  box-shadow: 0 4px 16px rgba(0,0,0,.35);
-}
-.prompt-bar {
-  margin-top: 12px;
-  background: #141414;
-  border: 1px solid #2c2c2c;
-  border-radius: 16px;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  color: #fff;
-}
-.prompt-chips {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.p-chip {
-  background: #252525;
-  color: #ccc;
-  border: 1px solid #383838;
-  border-radius: 999px;
-  padding: 5px 12px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: .2s;
-}
-.p-chip.active, .p-chip:hover {
-  background: var(--teal);
-  color: #fff;
-  border-color: var(--teal);
-}
-
 /* Fintech Flow Animation */
 .fintech-flow {
   display: grid;
@@ -679,7 +596,6 @@ input[type="range"] {
         </div>
         <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap">
           <button class="btn k" onclick="nextSlide()">Смотреть презентацию →</button>
-          <button class="btn" onclick="goToSlide(5)">Перейти к скриншотам сайта</button>
         </div>
       </div>
 
@@ -687,11 +603,10 @@ input[type="range"] {
       <div class="browser-frame">
         <div class="browser-bar">
           <div class="browser-dots"><i></i><i></i><i></i></div>
-          <div class="browser-url">https://ontime.by — Главный экран платформы</div>
+          <div class="browser-url">https://on-time.by — Главный экран платформы</div>
         </div>
-        <div class="photo-slot" data-slot="hero-main">
-          <!-- Вы можете прописать src="ваш_скриншот.png" и добавить класс has-image к .photo-slot -->
-          <img src="" alt="Главный экран сайта OnTime">
+        <div class="photo-slot has-image" data-slot="hero-main" data-default-src="landing.png">
+          <img src="landing.png" alt="Главный экран сайта OnTime">
           <div class="slot-placeholder">
             <div class="slot-icon">＋</div>
             <div class="slot-title">Вставьте скриншот главного экрана сайта</div>
@@ -897,10 +812,10 @@ input[type="range"] {
       <div class="browser-frame">
         <div class="browser-bar">
           <div class="browser-dots"><i></i><i></i><i></i></div>
-          <div class="browser-url">https://ontime.by/booking — Интерфейс онлайн-записи B2C</div>
+          <div class="browser-url">https://on-time.by/booking — Интерфейс онлайн-записи B2C</div>
         </div>
-        <div class="photo-slot" data-slot="b2c-booking">
-          <img src="" alt="Скриншот записи клиента на сайте">
+        <div class="photo-slot has-image" data-slot="b2c-booking" data-default-src="choose_a_time.png">
+          <img src="find_service.png" alt="Скриншот записи клиента на сайте">
           <div class="slot-placeholder">
             <div class="slot-icon">＋</div>
             <div class="slot-title">Скриншот страницы записи (B2C)</div>
@@ -912,127 +827,8 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 6: ВИТРИНА ИНТЕРФЕЙСА САЙТА (СПЕЦИАЛЬНЫЙ СЛАЙД ДЛЯ СКРИНШОТОВ) -->
-  <section class="slide" data-title="6. Интерфейс веб-сайта" data-orb-x="0.2" data-orb-y="0.3" data-orb-s="190" data-orb-h="0.4">
-    <div class="slide-inner stagger">
-      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px">
-        <div>
-          <div class="eyebrow">Демонстрация продукта</div>
-          <h2>Интерфейс веб-платформы OnTime</h2>
-        </div>
-        <div class="tab-bar" role="tablist">
-          <button class="tab-btn active" onclick="switchShowcase(0, this)">1. Каталог и запись</button>
-          <button class="tab-btn" onclick="switchShowcase(1, this)">2. Панель салона (B2B)</button>
-          <button class="tab-btn" onclick="switchShowcase(2, this)">3. Кабинет и расписание</button>
-        </div>
-      </div>
-
-      <!-- Вкладка 1 -->
-      <div class="showcase-pane grid-2-asym" id="sc-pane-0" style="margin-top:12px">
-        <div class="browser-frame">
-          <div class="browser-bar">
-            <div class="browser-dots"><i></i><i></i><i></i></div>
-            <div class="browser-url">https://ontime.by/catalog — Десктопная версия</div>
-          </div>
-          <div class="photo-slot" data-slot="site-screen-1">
-            <img src="" alt="Скриншот сайта 1">
-            <div class="slot-placeholder">
-              <div class="slot-icon">🖥</div>
-              <div class="slot-title">Экран 1: Каталог услуг / Выбор времени</div>
-              <div class="slot-sub">Нажмите или перетащите скриншот десктопной версии сайта</div>
-            </div>
-            <span class="slot-change-badge">Заменить скриншот</span>
-          </div>
-        </div>
-        <div class="browser-frame" style="max-width:340px; justify-self:center; width:100%">
-          <div class="browser-bar">
-            <div class="browser-dots"><i></i><i></i><i></i></div>
-            <div class="browser-url">Мобильная версия</div>
-          </div>
-          <div class="photo-slot portrait" data-slot="site-mobile-1">
-            <img src="" alt="Мобильный скриншот">
-            <div class="slot-placeholder">
-              <div class="slot-icon">📱</div>
-              <div class="slot-title">Мобильный вид / Подтверждение</div>
-              <div class="slot-sub">Вставьте вертикальный скриншот мобильной адаптации или уведомления</div>
-            </div>
-            <span class="slot-change-badge">Заменить скриншот</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Вкладка 2 -->
-      <div class="showcase-pane grid-2" id="sc-pane-1" style="margin-top:12px; display:none">
-        <div class="browser-frame">
-          <div class="browser-bar">
-            <div class="browser-dots"><i></i><i></i><i></i></div>
-            <div class="browser-url">https://ontime.by/admin — Управление заявками</div>
-          </div>
-          <div class="photo-slot" data-slot="site-screen-2">
-            <img src="" alt="Скриншот панели администратора">
-            <div class="slot-placeholder">
-              <div class="slot-icon">📊</div>
-              <div class="slot-title">Экран 2: Панель администратора салона</div>
-              <div class="slot-sub">Вставьте скриншот управления заявками и статусами</div>
-            </div>
-            <span class="slot-change-badge">Заменить скриншот</span>
-          </div>
-        </div>
-        <div class="browser-frame">
-          <div class="browser-bar">
-            <div class="browser-dots"><i></i><i></i><i></i></div>
-            <div class="browser-url">https://ontime.by/analytics — Воронка и выручка</div>
-          </div>
-          <div class="photo-slot" data-slot="site-screen-3">
-            <img src="" alt="Скриншот аналитики">
-            <div class="slot-placeholder">
-              <div class="slot-icon">📈</div>
-              <div class="slot-title">Экран 3: Аналитика и статистика</div>
-              <div class="slot-sub">Вставьте скриншот графиков выручки и загрузки мастеров</div>
-            </div>
-            <span class="slot-change-badge">Заменить скриншот</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Вкладка 3 -->
-      <div class="showcase-pane grid-2" id="sc-pane-2" style="margin-top:12px; display:none">
-        <div class="browser-frame">
-          <div class="browser-bar">
-            <div class="browser-dots"><i></i><i></i><i></i></div>
-            <div class="browser-url">https://ontime.by/calendar — Синхронизация расписания</div>
-          </div>
-          <div class="photo-slot" data-slot="site-screen-4">
-            <img src="" alt="Скриншот календаря">
-            <div class="slot-placeholder">
-              <div class="slot-icon">🗓</div>
-              <div class="slot-title">Экран 4: Расписание и Google Calendar</div>
-              <div class="slot-sub">Вставьте скриншот сетки расписания мастеров</div>
-            </div>
-            <span class="slot-change-badge">Заменить скриншот</span>
-          </div>
-        </div>
-        <div class="browser-frame">
-          <div class="browser-bar">
-            <div class="browser-dots"><i></i><i></i><i></i></div>
-            <div class="browser-url">https://ontime.by/profile — Профиль организации</div>
-          </div>
-          <div class="photo-slot" data-slot="site-screen-5">
-            <img src="" alt="Скриншот настроек">
-            <div class="slot-placeholder">
-              <div class="slot-icon">⚙️</div>
-              <div class="slot-title">Экран 5: Тарифы и настройка услуг</div>
-              <div class="slot-sub">Вставьте скриншот конструктора услуг и мастеров</div>
-            </div>
-            <span class="slot-change-badge">Заменить скриншот</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- СЛАЙД 7: КИЛЛЕР-ФИЧА AI КАМЕРА -->
-  <section class="slide" data-title="7. Киллер-фича: AI Камера" data-orb-x="0.75" data-orb-y="0.5" data-orb-s="250" data-orb-h="0.85">
+  <!-- СЛАЙД 6: КИЛЛЕР-ФИЧА AI КАМЕРА -->
+  <section class="slide" data-title="6. Киллер-фича: AI Камера" data-orb-x="0.75" data-orb-y="0.5" data-orb-s="250" data-orb-h="0.85">
     <div class="slide-inner grid-2-asym stagger">
       <div>
         <div class="eyebrow coral">Киллер-фича: AI Камера</div>
@@ -1063,46 +859,26 @@ input[type="range"] {
         </div>
       </div>
 
-      <!-- Интерактивный модуль сравнения Original / AI Result -->
-      <div>
-        <div class="ai-compare" id="ai-compare">
-          <div class="ai-layer ai-before photo-slot" data-slot="ai-orig" style="aspect-ratio:auto">
-            <img src="" alt="Original">
-            <div class="slot-placeholder" style="color:#fff">
-              <span class="logo-pill" style="background:rgba(255,255,255,.15); color:#fff">Original (До)</span>
-              <div style="font-size:13px; color:#bbb; margin-top:6px">Кликните, чтобы загрузить фото «До»</div>
-            </div>
-          </div>
-          <div class="ai-layer ai-after photo-slot" id="ai-after-layer" data-slot="ai-res" style="aspect-ratio:auto">
-            <img src="" alt="AI Result">
-            <div class="slot-placeholder" style="color:#fff">
-              <span class="logo-pill" style="background:#fff; color:var(--teal-d)">AI Камера (После)</span>
-              <div id="ai-preview-caption" style="font-size:15px; font-weight:500; margin-top:8px">"Make my hair shorter and textured"</div>
-              <div style="font-size:12px; color:#dcefef">Кликните, чтобы загрузить скриншот AI-результата</div>
-            </div>
-          </div>
-          <div class="ai-divider" id="ai-divider"><div class="ai-handle">↔</div></div>
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots"><i></i><i></i><i></i></div>
+          <div class="browser-url">https://on-time.by/ai-camera — AI Камера</div>
         </div>
-
-        <div style="margin-top:10px; display:flex; align-items:center; gap:12px">
-          <span style="font-size:12px; color:var(--mut); white-space:nowrap">Сравнение До/После:</span>
-          <input type="range" min="5" max="95" value="50" oninput="moveAiSlider(this.value)">
-        </div>
-
-        <div class="prompt-bar">
-          <span style="font-size:13px; color:var(--teal)">✦ Prompt:</span>
-          <div class="prompt-chips">
-            <button class="p-chip active" onclick="setPrompt(this, 'Make my hair shorter and textured')">"Make my hair shorter and textured"</button>
-            <button class="p-chip" onclick="setPrompt(this, 'Блонд каре с мягкими волнами')">«Блонд каре»</button>
-            <button class="p-chip" onclick="setPrompt(this, 'Текстурный кроп и плавный фейд')">«Текстурный кроп»</button>
+        <div class="photo-slot has-image" data-slot="ai-camera" data-default-src="ai_camera_in_action.png">
+          <img src="ai_camera_in_action.png" alt="AI Камера в действии">
+          <div class="slot-placeholder">
+            <div class="slot-icon">✦</div>
+            <div class="slot-title">Скриншот AI Камеры</div>
+            <div class="slot-sub">Кликните или перетащите скриншот сюда</div>
           </div>
+          <span class="slot-change-badge">Заменить скриншот</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- СЛАЙД 8: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2B + СИМУЛЯТОР ДЕДЛАЙНА -->
-  <section class="slide" data-title="8. Преимущество B2B" data-orb-x="0.25" data-orb-y="0.5" data-orb-s="210" data-orb-h="0.2">
+  <!-- СЛАЙД 7: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2B + СИМУЛЯТОР ДЕДЛАЙНА -->
+  <section class="slide" data-title="7. Преимущество B2B" data-orb-x="0.25" data-orb-y="0.5" data-orb-s="210" data-orb-h="0.2">
     <div class="slide-inner stagger">
       <div>
         <div class="eyebrow">Конкурентное преимущество B2B</div>
@@ -1166,8 +942,8 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 9: FINTECH ИННОВАЦИЯ (МАРШРУТИЗАЦИЯ ПЛАТЕЖЕЙ) -->
-  <section class="slide" data-title="9. Fintech Инновация" data-orb-x="0.5" data-orb-y="0.5" data-orb-s="220" data-orb-h="0.6">
+  <!-- СЛАЙД 8: FINTECH ИННОВАЦИЯ (МАРШРУТИЗАЦИЯ ПЛАТЕЖЕЙ) -->
+  <section class="slide" data-title="8. Fintech Инновация" data-orb-x="0.5" data-orb-y="0.5" data-orb-s="220" data-orb-h="0.6">
     <div class="slide-inner stagger">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px">
         <div>
@@ -1220,8 +996,8 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 10: ГЛОБАЛЬНЫЙ ПОТЕНЦИАЛ -->
-  <section class="slide" data-title="10. Глобальный потенциал" data-orb-x="0.75" data-orb-y="0.35" data-orb-s="240" data-orb-h="0.35">
+  <!-- СЛАЙД 9: ГЛОБАЛЬНЫЙ ПОТЕНЦИАЛ -->
+  <section class="slide" data-title="9. Глобальный потенциал" data-orb-x="0.75" data-orb-y="0.35" data-orb-s="240" data-orb-h="0.35">
     <div class="slide-inner stagger">
       <div>
         <div class="eyebrow">Глобальный потенциал</div>
@@ -1255,13 +1031,12 @@ input[type="range"] {
           <span style="width:12px; height:12px; border-radius:50%; background:var(--teal); display:inline-block; box-shadow:0 0 12px var(--teal)"></span>
           <span style="font-size:18px; font-weight:400">Первые B2B клиенты уже готовы к интеграции платформы</span>
         </div>
-        <span class="logo-pill" style="background:var(--teal); color:#fff">Traction Ready</span>
       </div>
     </div>
   </section>
 
-  <!-- СЛАЙД 11: ПРОГНОЗ И ВАЛИДАЦИЯ ЭКОНОМИКИ (ОДНА НИША) -->
-  <section class="slide" data-title="11. Прогноз экономики" data-orb-x="0.2" data-orb-y="0.6" data-orb-s="220" data-orb-h="0.5">
+  <!-- СЛАЙД 10: ПРОГНОЗ И ВАЛИДАЦИЯ ЭКОНОМИКИ (ОДНА НИША) -->
+  <section class="slide" data-title="10. Прогноз экономики" data-orb-x="0.2" data-orb-y="0.6" data-orb-s="220" data-orb-h="0.5">
     <div class="slide-inner stagger">
       <div>
         <div class="eyebrow">Прогноз (одна ниша — рынок РБ)</div>
@@ -1292,7 +1067,7 @@ input[type="range"] {
 
         <div class="card dark">
           <span class="logo-pill" style="background:var(--teal); color:#fff">Gross Revenue / мес</span>
-          <div class="big-stat" style="font-size:44px; color:#fff">$140,000</div>
+          <div class="big-stat" style="font-size:44px; color:#fff">$130,000</div>
           <h3 style="color:#fff">Выручка в месяц</h3>
           <p style="font-size:13px; margin-top:6px">Прогнозируемая ежемесячная выручка платформы только на одной вертикали.</p>
         </div>
@@ -1318,8 +1093,8 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 12: ИНВЕСТИЦИОННЫЙ ЗАПРОС И КОМАНДА -->
-  <section class="slide" data-title="12. Инвестиционный запрос и Команда" data-orb-x="0.72" data-orb-y="0.5" data-orb-s="260" data-orb-h="0.45">
+  <!-- СЛАЙД 11: ИНВЕСТИЦИОННЫЙ ЗАПРОС И КОМАНДА -->
+  <section class="slide" data-title="11. Инвестиционный запрос и Команда" data-orb-x="0.72" data-orb-y="0.5" data-orb-s="260" data-orb-h="0.45">
     <div class="slide-inner grid-2-asym stagger">
       <div>
         <div class="eyebrow">Инвестиционный запрос</div>
@@ -1327,11 +1102,11 @@ input[type="range"] {
 
         <div class="card dark" style="margin-top:20px">
           <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px">
-            <div class="big-stat" style="color:#fff; margin:0">$120,000</div>
-            <span class="logo-pill" style="background:var(--teal); color:#fff; font-size:13px">Срок: 24 месяца</span>
+            <div class="big-stat" style="color:#fff; margin:0">183,043 BYN</div>
+            <span class="logo-pill" style="background:var(--teal); color:#fff; font-size:13px">Срок: 12 месяцев</span>
           </div>
           <p style="margin-top:12px; font-size:14px">
-            Инвестиции направлены на обеспечение технической устойчивости, маркетинг (рекламу) и захват лидирующей доли рынка в первый год работы.
+            Инвестиции направлены на обеспечение технической устойчивости, маркетинг (рекламу) и захват лидирующей доли рынка.
           </p>
 
           <div class="grid-2" style="gap:12px; margin-top:18px">
@@ -1364,8 +1139,8 @@ input[type="range"] {
           </div>
           <div class="grid-2" style="gap:16px">
             <div>
-              <div class="photo-slot portrait" data-slot="founder-1" style="border-radius:16px; border:1px dashed var(--line)">
-                <img src="" alt="Владислав Буель">
+              <div class="photo-slot portrait has-image" data-slot="founder-1" data-default-src="vladislav.jpg" style="border-radius:16px; border:1px dashed var(--line)">
+                <img src="vladislav.jpg" alt="Владислав Буель">
                 <div class="slot-placeholder">
                   <div class="slot-icon">👤</div>
                   <div class="slot-title" style="font-size:12px">Фото основателя</div>
@@ -1376,8 +1151,8 @@ input[type="range"] {
               <p style="font-size:13px">Co-Founder</p>
             </div>
             <div>
-              <div class="photo-slot portrait" data-slot="founder-2" style="border-radius:16px; border:1px dashed var(--line)">
-                <img src="" alt="Михаил Паньков">
+              <div class="photo-slot portrait has-image" data-slot="founder-2" data-default-src="mikhail.jpg" style="border-radius:16px; border:1px dashed var(--line)">
+                <img src="mikhail.jpg" alt="Михаил Паньков">
                 <div class="slot-placeholder">
                   <div class="slot-icon">👤</div>
                   <div class="slot-title" style="font-size:12px">Фото основателя</div>
@@ -1561,9 +1336,10 @@ function readImageFile(file, slot) {
 function clearSavedPhotos() {
   document.querySelectorAll('.photo-slot').forEach(slot => {
     localStorage.removeItem('ontime_slide_img_' + slot.dataset.slot);
-    slot.classList.remove('has-image');
     const img = slot.querySelector('img');
-    if (img) img.src = '';
+    const fallback = slot.dataset.defaultSrc || '';
+    if (img) img.src = fallback;
+    slot.classList.toggle('has-image', !!fallback);
   });
 }
 
@@ -1591,17 +1367,6 @@ function switchShowcase(idx, btn) {
   document.querySelectorAll('.showcase-pane').forEach((p, i) => p.style.display = i === idx ? 'grid' : 'none');
   btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-}
-
-function moveAiSlider(val) {
-  document.getElementById('ai-after-layer').style.clipPath = `inset(0 0 0 ${val}%)`;
-  document.getElementById('ai-divider').style.left = val + '%';
-}
-
-function setPrompt(btn, text) {
-  btn.parentElement.querySelectorAll('.p-chip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('ai-preview-caption').textContent = `"${text}"`;
 }
 
 function calcDeadline(hours) {
