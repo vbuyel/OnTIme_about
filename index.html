@@ -549,9 +549,92 @@ input[type="range"] {
   cursor: pointer;
 }
 
+/* Differentiators: "у конкурентов" vs "в OnTime" */
+.diff-card { display: flex; flex-direction: column; gap: 14px; padding: 24px; }
+.diff-head { display: flex; align-items: center; gap: 12px; }
+.diff-icon {
+  width: 44px; height: 44px; flex: none;
+  border-radius: 14px;
+  display: grid; place-items: center;
+  font-size: 20px; font-weight: 600;
+  background: var(--teal-l); color: var(--teal-d);
+}
+.diff-icon.coral { background: var(--coral-l); color: #a4482c; }
+.diff-icon.ink { background: var(--ink); color: #fff; }
+.vs-old {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--tp);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--mut);
+}
+.vs-old b { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #a4482c; margin-bottom: 3px; }
+.vs-new { display: grid; gap: 8px; list-style: none; }
+.vs-new li { position: relative; padding-left: 24px; font-size: 14px; line-height: 1.4; color: var(--ink); }
+.vs-new li::before {
+  content: '✓';
+  position: absolute; left: 0; top: 1px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--teal); color: #fff;
+  font-size: 10px; font-weight: 700;
+  display: grid; place-items: center;
+}
+.vs-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-d); }
+.rival-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.rival-strip .pill { font-size: 13px; background: rgba(255,255,255,.9); }
+.rival-strip .pill b { font-weight: 600; }
+
+/* Google Calendar mock */
+.gcal { background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 16px 40px rgba(0,0,0,.07), 0 0 1px rgba(0,0,0,.25); overflow: hidden; }
+.gcal-top { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--tp); font-size: 13px; }
+.gcal-top b { font-weight: 600; }
+.gcal-cols { display: grid; grid-template-columns: 44px repeat(3, 1fr); }
+.gcal-col-h { padding: 8px 6px; font-size: 11px; font-weight: 600; color: var(--mut); text-align: center; border-bottom: 1px solid var(--line); border-left: 1px solid var(--line); }
+.gcal-time { font-size: 10px; color: var(--mut); text-align: right; padding: 0 6px; height: 46px; border-bottom: 1px solid #f3f1ee; }
+.gcal-cell { position: relative; height: 46px; border-left: 1px solid var(--line); border-bottom: 1px solid #f3f1ee; }
+.gcal-ev {
+  position: absolute; left: 4px; right: 4px; z-index: 1;
+  border-radius: 8px; padding: 5px 7px;
+  font-size: 10.5px; line-height: 1.25; color: #fff; overflow: hidden;
+}
+.gcal-ev b { display: block; font-weight: 600; font-size: 11px; }
+.gcal-ev.t { background: var(--teal); }
+.gcal-ev.c { background: var(--coral); }
+.gcal-ev.k { background: #2b2b2b; }
+.gcal-ev.focus { outline: 2px solid var(--ink); outline-offset: 1px; }
+.gcal-pop {
+  margin: 14px; padding: 14px 16px;
+  border-radius: 16px; border: 1px solid var(--line);
+  box-shadow: 0 10px 28px rgba(0,0,0,.08);
+  background: #fff; font-size: 13px;
+}
+.gcal-pop-row { display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding: 4px 0; color: var(--ink); }
+.gcal-pop-row span:first-child { color: var(--mut); text-align: center; }
+
+/* Notification matrix + Telegram mock */
+.n-matrix { display: grid; gap: 6px; margin-top: 18px; }
+.n-row { display: grid; grid-template-columns: 1.6fr repeat(3, .6fr); gap: 8px; align-items: center; padding: 10px 14px; border-radius: 14px; background: rgba(255,255,255,.92); border: 1px solid var(--line); font-size: 14px; }
+.n-row.head { background: transparent; border: 0; padding: 0 14px 2px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--mut); }
+.n-row.hl { background: linear-gradient(90deg, var(--coral-l) 0%, #fff 100%); border: 1.5px solid var(--coral); }
+.n-row > div:not(:first-child) { text-align: center; }
+.n-yes { color: var(--teal-d); font-weight: 700; }
+.n-no { color: #cfc9c1; }
+.tg-phone { max-width: 340px; margin: 0 auto; border-radius: 32px; padding: 10px; background: var(--ink); box-shadow: 0 20px 50px rgba(0,0,0,.15); }
+.tg-screen { border-radius: 24px; overflow: hidden; background: #e8eef0; }
+.tg-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #fff; border-bottom: 1px solid var(--line); }
+.tg-ava { width: 34px; height: 34px; border-radius: 50%; background: var(--teal); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.tg-body { display: grid; gap: 8px; padding: 14px 12px 18px; }
+.tg-msg { justify-self: start; max-width: 88%; padding: 9px 12px; border-radius: 14px 14px 14px 4px; background: #fff; font-size: 12.5px; line-height: 1.4; white-space: pre-line; color: var(--ink); box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.tg-msg small { display: block; text-align: right; font-size: 10px; color: var(--mut); margin-top: 2px; }
+.tg-msg.hot { border: 1.5px solid var(--coral); }
+.tg-btn { margin-top: 6px; padding: 7px; border-radius: 10px; background: var(--teal-l); color: var(--teal-d); text-align: center; font-weight: 600; font-size: 12px; }
+
 @media (max-width: 960px) {
   .slide { padding: 20px; }
   .grid-2, .grid-2-asym, .grid-3, .grid-4, .fintech-flow { grid-template-columns: 1fr; }
+  .n-row { grid-template-columns: 1.4fr repeat(3, .5fr); font-size: 12px; padding: 8px 10px; }
   .comp-row { grid-template-columns: 1fr; gap: 8px; }
   .comp-row.head { display: none; }
   .nav-dots { display: none; }
@@ -726,113 +809,192 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 4: КОНКУРЕНТЫ -->
-  <section class="slide" data-title="4. Отличие от конкурентов" data-orb-x="0.18" data-orb-y="0.7" data-orb-s="200" data-orb-h="0.3">
+  <!-- СЛАЙД 4: ОТЛИЧИЕ ОТ КОНКУРЕНТОВ — ТРИ ДЕТАЛИ -->
+  <section class="slide" data-title="4. Отличие от конкурентов" data-orb-x="0.85" data-orb-y="0.18" data-orb-s="150" data-orb-h="0.3">
     <div class="slide-inner stagger">
       <div>
-        <div class="eyebrow">Безоговорочное превосходство</div>
-        <h2>Чем мы отличаемся от конкурентов</h2>
+        <div class="eyebrow">Отличие от конкурентов</div>
+        <h2>Разница — в деталях</h2>
+        <p class="lead" style="margin-top:12px; max-width:760px">
+          Zen24 и Bitrix24 решают задачу записи. OnTime сопровождает клиента и бизнес на всём пути: от расписания в календаре и уведомлений до готового образа ещё до визита.
+        </p>
       </div>
 
-      <div class="comp-table">
-        <div class="comp-row head">
-          <div>Платформа</div>
-          <div>Критический минус / UX</div>
-          <div>Финансовая модель</div>
+      <div class="grid-3" style="margin-top:24px; align-items:stretch">
+        <div class="card diff-card">
+          <div class="diff-head">
+            <div class="diff-icon">31</div>
+            <div>
+              <div class="vs-label">Для организаций</div>
+              <h3>Google Calendar</h3>
+            </div>
+          </div>
+          <div class="vs-old"><b>Обычно</b>Расписание доступно только внутри CRM: чтобы узнать детали записи, приходится открывать систему.</div>
+          <ul class="vs-new">
+            <li>Вся информация об услуге — прямо в событии календаря</li>
+            <li>Администратор видит записи всех мастеров, мастер — только свои</li>
+            <li>Перенос и отмена обновляются в календаре автоматически</li>
+          </ul>
         </div>
 
-        <div class="comp-row">
-          <div><h3 style="font-size:24px; font-weight:600">Zen24</h3></div>
-          <div>
-            <p style="color:var(--ink); font-weight:500">Частые технические сбои</p>
-            <p style="font-size:14px">Нет прямой синхронизации внешних календарей</p>
+        <div class="card diff-card">
+          <div class="diff-head">
+            <div class="diff-icon coral">✉</div>
+            <div>
+              <div class="vs-label">Для всех участников</div>
+              <h3>Telegram и Email</h3>
+            </div>
           </div>
-          <div>
-            <span style="color:#c85a3a; font-weight:600; font-size:14px">Плавающие ежемесячные оплаты</span>
-            <p style="font-size:13px">Сильно зависят от количества SMS-рассылок</p>
-          </div>
+          <div class="vs-old"><b>Обычно</b>Платные SMS-рассылки: счёт растёт вместе с числом клиентов, а сообщения приходят только о части событий.</div>
+          <ul class="vs-new">
+            <li>Все уведомления продукта — в Telegram и на почту, без доплат за SMS</li>
+            <li>Клиент, мастер и администратор узнают о каждом изменении записи</li>
+            <li><b>Освободилось время?</b> Клиент сразу получает сообщение о желаемом окне</li>
+          </ul>
         </div>
 
-        <div class="comp-row">
-          <div><h3 style="font-size:24px; font-weight:600">Bitrix24</h3></div>
-          <div>
-            <p style="color:var(--ink); font-weight:500">Сложный, перегруженный кнопками интерфейс</p>
-            <p style="font-size:14px">Высокий порог входа для линейного персонала и клиентов</p>
+        <div class="card diff-card">
+          <div class="diff-head">
+            <div class="diff-icon ink">✦</div>
+            <div>
+              <div class="vs-label">Для клиента</div>
+              <h3>AI Камера</h3>
+            </div>
           </div>
-          <div>
-            <span style="color:#b5892e; font-weight:600; font-size:14px">Ориентирован только на B2B клиентов</span>
-            <p style="font-size:13px">Выгодные тарифы, но отсутствие фокуса на клиентском B2C-опыте</p>
+          <div class="vs-old"><b>Обычно</b>Клиент идёт к мастеру вслепую и видит результат только в зеркале, когда менять уже поздно.</div>
+          <ul class="vs-new">
+            <li>Новый образ генерируется до визита к мастеру</li>
+            <li>Камера + текстовый запрос → реалистичный результат на себе</li>
+            <li>Готовую картинку клиент показывает мастеру: никаких недопониманий</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rival-strip">
+        <span class="pill"><i style="background:var(--coral)"></i><b>Zen24:</b>&nbsp;сбои и нет синхронизации внешних календарей</span>
+        <span class="pill"><i style="background:#b5892e"></i><b>Bitrix24:</b>&nbsp;перегруженный интерфейс, фокус только на B2B</span>
+        <span class="pill"><i></i><b>OnTime:</b>&nbsp;фиксированная оплата, не зависит от числа клиентов и SMS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 5: ДЕТАЛЬ 1 — GOOGLE CALENDAR -->
+  <section class="slide" data-title="5. Google Calendar" data-orb-x="0.08" data-orb-y="0.85" data-orb-s="160" data-orb-h="0.25">
+    <div class="slide-inner grid-2-asym stagger">
+      <div>
+        <div class="eyebrow">Деталь 01 · Google Calendar</div>
+        <h2>Всё о записи — в календаре организации</h2>
+        <p class="lead" style="margin-top:14px">
+          Не нужно держать CRM открытой весь день. Каждая подтверждённая запись появляется в Google Calendar со всей информацией об услуге.
+        </p>
+
+        <div style="display:grid; gap:12px; margin-top:22px">
+          <div class="card soft" style="padding:16px 20px">
+            <h3>Что внутри события</h3>
+            <p style="font-size:14px; margin-top:4px">Услуга и имя клиента в названии, мастер, точное время начала и окончания, ссылка на запись в OnTime.</p>
+          </div>
+          <div class="card soft" style="padding:16px 20px">
+            <h3>Кто что видит</h3>
+            <p style="font-size:14px; margin-top:4px">Администратор видит записи всех мастеров организации. Мастер получает только свои записи в личный календарь.</p>
+          </div>
+          <div class="card soft" style="padding:16px 20px">
+            <h3>Всегда актуально</h3>
+            <p style="font-size:14px; margin-top:4px">Подтвердили запись — событие появилось. Перенесли — сдвинулось. Отменили или запись истекла — исчезло. Без ручной работы.</p>
           </div>
         </div>
+      </div>
 
-        <div class="comp-row ontime">
-          <div>
-            <div class="logo" style="font-size:28px">On<b>Time</b></div>
-          </div>
-          <div>
-            <p style="color:var(--ink); font-weight:600">Безотказность & AI-интеграция для клиента</p>
-            <p style="font-size:14px; color:var(--teal-d)">Чистый минимализм в UI — запись в несколько касаний</p>
-          </div>
-          <div>
-            <span style="color:var(--teal-d); font-weight:600; font-size:15px">Фиксированная ежемесячная оплата</span>
-            <p style="font-size:13px; color:var(--teal-d)">Не зависит от количества клиентов и транзакций</p>
-          </div>
+      <div class="gcal" aria-label="Пример календаря организации">
+        <div class="gcal-top">
+          <b>Google Calendar · Салон «Север»</b>
+          <span style="color:var(--mut)">Сб, 18 октября</span>
+        </div>
+        <div class="gcal-cols">
+          <div style="border-bottom:1px solid var(--line)"></div>
+          <div class="gcal-col-h">Анна</div>
+          <div class="gcal-col-h">Ольга</div>
+          <div class="gcal-col-h">Игорь</div>
+
+          <div class="gcal-time">10:00</div>
+          <div class="gcal-cell"><div class="gcal-ev t" style="top:3px; height:84px"><b>Окрашивание — Мария К.</b>10:00–11:45</div></div>
+          <div class="gcal-cell"><div class="gcal-ev c" style="top:3px; height:40px"><b>Маникюр — Елена</b>10:00–10:50</div></div>
+          <div class="gcal-cell"></div>
+
+          <div class="gcal-time">11:00</div>
+          <div class="gcal-cell"></div>
+          <div class="gcal-cell"></div>
+          <div class="gcal-cell"><div class="gcal-ev k focus" style="top:3px; height:40px"><b>Стрижка — Дмитрий П.</b>11:00–11:45</div></div>
+
+          <div class="gcal-time">12:00</div>
+          <div class="gcal-cell"><div class="gcal-ev t" style="top:3px; height:40px"><b>Укладка — Ирина</b>12:00–12:45</div></div>
+          <div class="gcal-cell"><div class="gcal-ev c" style="top:3px; height:40px"><b>Педикюр — Светлана</b>12:00–12:50</div></div>
+          <div class="gcal-cell"></div>
+        </div>
+
+        <div class="gcal-pop">
+          <div style="font-size:15px; font-weight:600">Стрижка — Дмитрий П.</div>
+          <div class="gcal-pop-row"><span>◷</span><span>Сб, 18 октября · 11:00–11:45</span></div>
+          <div class="gcal-pop-row"><span>✂</span><span>Мастер: Игорь</span></div>
+          <div class="gcal-pop-row"><span>✉</span><span>Гость: мастер, событие продублировано в его календарь</span></div>
+          <div class="gcal-pop-row"><span>↗</span><span style="color:var(--teal-d)">Запись OnTime</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- СЛАЙД 5: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2C + СКРИНШОТ САЙТА -->
-  <section class="slide" data-title="5. Преимущество B2C" data-orb-x="0.78" data-orb-y="0.45" data-orb-s="230" data-orb-h="0.5">
+  <!-- СЛАЙД 6: ДЕТАЛЬ 2 — TELEGRAM И EMAIL -->
+  <section class="slide" data-title="6. Telegram и Email" data-orb-x="0.94" data-orb-y="0.12" data-orb-s="130" data-orb-h="0.7">
     <div class="slide-inner grid-2-asym stagger">
       <div>
-        <div class="eyebrow">Конкурентное преимущество B2C</div>
-        <h2>Почему клиенты выбирают нас?</h2>
+        <div class="eyebrow coral">Деталь 02 · Telegram и Email</div>
+        <h2>Каждое событие — в мессенджер и на почту</h2>
+        <p class="lead" style="margin-top:12px">
+          Все уведомления, которые есть в продукте, дублируются в Telegram и Email. Каждый получает только то, что касается его.
+        </p>
 
-        <div style="display:grid; gap:16px; margin-top:24px">
-          <div class="card">
-            <span class="logo-pill">01 · Быстрое бронирование</span>
-            <h3 style="margin-top:10px; font-size:22px">Запись в два клика</h3>
-            <p style="margin-top:6px; font-size:15px">
-              Интуитивный поиск услуг по смарт-фильтру. Мгновенное бронирование свободного окна и просмотр истории визитов без единого телефонного звонка.
-            </p>
-          </div>
-
-          <div class="card">
-            <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">02 · Визуализация до визита</span>
-            <h3 style="margin-top:10px; font-size:22px">Технология AI Камера</h3>
-            <p style="margin-top:6px; font-size:15px">
-              Уникальная система визуализации результата до похода в салон. Полное устранение страха неизвестности перед сменой имиджа.
-            </p>
-          </div>
+        <div class="n-matrix">
+          <div class="n-row head"><div>Событие</div><div>Клиент</div><div>Мастер</div><div>Админ</div></div>
+          <div class="n-row"><div>Новая запись, ждёт подтверждения</div><div class="n-yes">✓</div><div class="n-yes">✓</div><div class="n-yes">✓</div></div>
+          <div class="n-row"><div>Запись подтверждена</div><div class="n-yes">✓</div><div class="n-yes">✓</div><div class="n-yes">✓</div></div>
+          <div class="n-row"><div>Запись перенесена</div><div class="n-yes">✓</div><div class="n-yes">✓</div><div class="n-yes">✓</div></div>
+          <div class="n-row"><div>Запись отменена</div><div class="n-yes">✓</div><div class="n-yes">✓</div><div class="n-yes">✓</div></div>
+          <div class="n-row"><div>Напоминание за 24 часа до визита</div><div class="n-yes">✓</div><div class="n-no">—</div><div class="n-no">—</div></div>
+          <div class="n-row hl"><div><b>Освободилось желаемое время</b></div><div class="n-yes">✓</div><div class="n-no">—</div><div class="n-no">—</div></div>
         </div>
+        <p style="font-size:12px; margin-top:10px">Без платных SMS. Контакты клиента не попадают в сообщения для персонала.</p>
       </div>
 
-      <!-- Слот для скриншота клиентской записи сайта -->
-      <div class="browser-frame">
-        <div class="browser-bar">
-          <div class="browser-dots"><i></i><i></i><i></i></div>
-          <div class="browser-url">https://on-time.by/booking — Интерфейс онлайн-записи B2C</div>
-        </div>
-        <div class="photo-slot has-image" data-slot="b2c-booking" data-default-src="choose_a_time.png">
-          <img src="find_service.png" alt="Скриншот записи клиента на сайте">
-          <div class="slot-placeholder">
-            <div class="slot-icon">＋</div>
-            <div class="slot-title">Скриншот страницы записи (B2C)</div>
-            <div class="slot-sub">Кликните или перетащите сюда скриншот выбора услуги, мастера и времени с вашего сайта</div>
+      <div class="tg-phone" aria-label="Пример уведомлений в Telegram">
+        <div class="tg-screen">
+          <div class="tg-head">
+            <div class="tg-ava">OT</div>
+            <div>
+              <div style="font-size:14px; font-weight:600">OnTime Bot</div>
+              <div style="font-size:11px; color:var(--mut)">бот</div>
+            </div>
           </div>
-          <span class="slot-change-badge">Заменить фото</span>
+          <div class="tg-body">
+            <div class="tg-msg">Запись подтверждена
+Стрижка — Игорь
+18.10 11:00<small>09:12</small></div>
+            <div class="tg-msg">Напоминание о записи
+Стрижка — Игорь
+18.10 11:00<small>вчера</small></div>
+            <div class="tg-msg hot">🔔 Освободилось желаемое время
+Окрашивание — Анна
+19.10 15:00
+<div class="tg-btn">Записаться →</div><small>14:37</small></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- СЛАЙД 6: КИЛЛЕР-ФИЧА AI КАМЕРА -->
-  <section class="slide" data-title="6. Киллер-фича: AI Камера" data-orb-x="0.75" data-orb-y="0.5" data-orb-s="250" data-orb-h="0.85">
+  <!-- СЛАЙД 7: КИЛЛЕР-ФИЧА AI КАМЕРА -->
+  <section class="slide" data-title="7. AI Камера" data-orb-x="0.75" data-orb-y="0.5" data-orb-s="250" data-orb-h="0.85">
     <div class="slide-inner grid-2-asym stagger">
       <div>
-        <div class="eyebrow coral">Киллер-фича: AI Камера</div>
-        <h2>Генерация желаемого результата</h2>
+        <div class="eyebrow coral">Деталь 03 · AI Камера</div>
+        <h2>Образ — ещё до визита к мастеру</h2>
 
         <div style="display:grid; gap:14px; margin-top:20px">
           <div class="card soft" style="padding:18px 22px">
@@ -877,8 +1039,53 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 7: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2B + СИМУЛЯТОР ДЕДЛАЙНА -->
-  <section class="slide" data-title="7. Преимущество B2B" data-orb-x="0.25" data-orb-y="0.5" data-orb-s="210" data-orb-h="0.2">
+  <!-- СЛАЙД 8: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2C + СКРИНШОТ САЙТА -->
+  <section class="slide" data-title="8. Преимущество B2C" data-orb-x="0.78" data-orb-y="0.45" data-orb-s="230" data-orb-h="0.5">
+    <div class="slide-inner grid-2-asym stagger">
+      <div>
+        <div class="eyebrow">Конкурентное преимущество B2C</div>
+        <h2>Почему клиенты выбирают нас?</h2>
+
+        <div style="display:grid; gap:16px; margin-top:24px">
+          <div class="card">
+            <span class="logo-pill">01 · Быстрое бронирование</span>
+            <h3 style="margin-top:10px; font-size:22px">Запись в два клика</h3>
+            <p style="margin-top:6px; font-size:15px">
+              Интуитивный поиск услуг по смарт-фильтру. Мгновенное бронирование свободного окна и просмотр истории визитов без единого телефонного звонка.
+            </p>
+          </div>
+
+          <div class="card">
+            <span class="logo-pill" style="background:var(--coral-l); color:#a4482c">02 · Визуализация до визита</span>
+            <h3 style="margin-top:10px; font-size:22px">Технология AI Камера</h3>
+            <p style="margin-top:6px; font-size:15px">
+              Уникальная система визуализации результата до похода в салон. Полное устранение страха неизвестности перед сменой имиджа.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Слот для скриншота клиентской записи сайта -->
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots"><i></i><i></i><i></i></div>
+          <div class="browser-url">https://on-time.by/booking — Интерфейс онлайн-записи B2C</div>
+        </div>
+        <div class="photo-slot has-image" data-slot="b2c-booking" data-default-src="choose_a_time.png">
+          <img src="find_service.png" alt="Скриншот записи клиента на сайте">
+          <div class="slot-placeholder">
+            <div class="slot-icon">＋</div>
+            <div class="slot-title">Скриншот страницы записи (B2C)</div>
+            <div class="slot-sub">Кликните или перетащите сюда скриншот выбора услуги, мастера и времени с вашего сайта</div>
+          </div>
+          <span class="slot-change-badge">Заменить фото</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЛАЙД 9: КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО B2B + СИМУЛЯТОР ДЕДЛАЙНА -->
+  <section class="slide" data-title="9. Преимущество B2B" data-orb-x="0.25" data-orb-y="0.5" data-orb-s="210" data-orb-h="0.2">
     <div class="slide-inner stagger">
       <div>
         <div class="eyebrow">Конкурентное преимущество B2B</div>
@@ -942,8 +1149,8 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 8: FINTECH ИННОВАЦИЯ (МАРШРУТИЗАЦИЯ ПЛАТЕЖЕЙ) -->
-  <section class="slide" data-title="8. Fintech Инновация" data-orb-x="0.5" data-orb-y="0.5" data-orb-s="220" data-orb-h="0.6">
+  <!-- СЛАЙД 10: FINTECH ИННОВАЦИЯ (МАРШРУТИЗАЦИЯ ПЛАТЕЖЕЙ) -->
+  <section class="slide" data-title="10. Fintech Инновация" data-orb-x="0.5" data-orb-y="0.5" data-orb-s="220" data-orb-h="0.6">
     <div class="slide-inner stagger">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px">
         <div>
@@ -996,8 +1203,8 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 9: ГЛОБАЛЬНЫЙ ПОТЕНЦИАЛ -->
-  <section class="slide" data-title="9. Глобальный потенциал" data-orb-x="0.75" data-orb-y="0.35" data-orb-s="240" data-orb-h="0.35">
+  <!-- СЛАЙД 11: ГЛОБАЛЬНЫЙ ПОТЕНЦИАЛ -->
+  <section class="slide" data-title="11. Глобальный потенциал" data-orb-x="0.75" data-orb-y="0.35" data-orb-s="240" data-orb-h="0.35">
     <div class="slide-inner stagger">
       <div>
         <div class="eyebrow">Глобальный потенциал</div>
@@ -1035,25 +1242,25 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 10: ПРОГНОЗ И ВАЛИДАЦИЯ ЭКОНОМИКИ (ОДНА НИША) -->
-  <section class="slide" data-title="10. Прогноз экономики" data-orb-x="0.2" data-orb-y="0.6" data-orb-s="220" data-orb-h="0.5">
+  <!-- СЛАЙД 12: ПРОГНОЗ И ВАЛИДАЦИЯ ЭКОНОМИКИ (ОДНА НИША) -->
+  <section class="slide" data-title="12. Прогноз экономики" data-orb-x="0.2" data-orb-y="0.6" data-orb-s="220" data-orb-h="0.5">
     <div class="slide-inner stagger">
       <div>
         <div class="eyebrow">Прогноз (одна ниша — рынок РБ)</div>
-        <h2>Валидация экономики</h2>
+        <h2>Прогнозируемая валидация экономики за первые 12 мес</h2>
       </div>
 
       <div class="grid-4" style="margin-top:24px">
         <div class="card teal-tint">
           <span class="logo-pill" style="background:#fff">Net Profit / мес</span>
-          <div class="big-stat teal" style="font-size:44px">$30,000+</div>
+          <div class="big-stat teal" style="font-size:44px">15,000+ BYN</div>
           <h3>Чистая прибыль</h3>
           <p style="font-size:13px; margin-top:6px; color:var(--teal-d)">Ежемесячная чистая прибыль платформы после вычета всех расходов.</p>
         </div>
 
         <div class="card">
           <span class="logo-pill">Доля рынка РБ</span>
-          <div class="big-stat ink" style="font-size:44px">3,000</div>
+          <div class="big-stat ink" style="font-size:44px">1,500</div>
           <h3>Парикмахерских</h3>
           <p style="font-size:13px; margin-top:6px">Активных салонов из 7,000 на рынке РБ. В среднем по 3 мастера в каждом.</p>
         </div>
@@ -1067,7 +1274,7 @@ input[type="range"] {
 
         <div class="card dark">
           <span class="logo-pill" style="background:var(--teal); color:#fff">Gross Revenue / мес</span>
-          <div class="big-stat" style="font-size:44px; color:#fff">$130,000</div>
+          <div class="big-stat" style="font-size:44px; color:#fff">165,000+ BYN</div>
           <h3 style="color:#fff">Выручка в месяц</h3>
           <p style="font-size:13px; margin-top:6px">Прогнозируемая ежемесячная выручка платформы только на одной вертикали.</p>
         </div>
@@ -1093,16 +1300,16 @@ input[type="range"] {
     </div>
   </section>
 
-  <!-- СЛАЙД 11: ИНВЕСТИЦИОННЫЙ ЗАПРОС И КОМАНДА -->
-  <section class="slide" data-title="11. Инвестиционный запрос и Команда" data-orb-x="0.72" data-orb-y="0.5" data-orb-s="260" data-orb-h="0.45">
+  <!-- СЛАЙД 13: ИНВЕСТИЦИОННЫЙ ЗАПРОС И КОМАНДА -->
+  <section class="slide" data-title="13. Инвестиционный запрос и Команда" data-orb-x="0.72" data-orb-y="0.5" data-orb-s="260" data-orb-h="0.45">
     <div class="slide-inner grid-2-asym stagger">
       <div>
         <div class="eyebrow">Инвестиционный запрос</div>
-        <h2>Ресурсы для захвата рынка</h2>
+        <h2>Необходимые ресурсы</h2>
 
         <div class="card dark" style="margin-top:20px">
           <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px">
-            <div class="big-stat" style="color:#fff; margin:0">183,043 BYN</div>
+            <div class="big-stat" style="color:#fff; margin:0">$75,000</div>
             <span class="logo-pill" style="background:var(--teal); color:#fff; font-size:13px">Срок: 12 месяцев</span>
           </div>
           <p style="margin-top:12px; font-size:14px">
@@ -1131,7 +1338,7 @@ input[type="range"] {
       </div>
 
       <!-- Основатели и Финальный слоган -->
-      <div>
+      <!-- <div>
         <div class="card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px">
             <h3>Основатели проекта</h3>
@@ -1172,7 +1379,7 @@ input[type="range"] {
             <button class="btn k" onclick="goToSlide(0)">В начало ↺</button>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -1191,7 +1398,7 @@ input[type="range"] {
 <footer class="bottombar">
   <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
   <div>
-    <span id="slide-counter" style="font-weight:600; color:var(--ink)">01 / 12</span>
+    <span id="slide-counter" style="font-weight:600; color:var(--ink)">01 / 13</span>
     <span style="margin-left:12px" id="slide-title-lbl">1. О проекте OnTime</span>
   </div>
   <div style="display:flex; align-items:center; gap:8px">
